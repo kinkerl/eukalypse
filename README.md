@@ -10,6 +10,12 @@ this library serves 2 mail goals:
 
 especially feature 2 can be used in and testing/unit-testing environment: "is everything as i expect it to be?"
 
+installation
+============
+
+```bash
+$ sudo pip install -e git+https://github.com/kinkerl/eukalypse.git#egg=eukalypse
+```
 
 usage
 =====
