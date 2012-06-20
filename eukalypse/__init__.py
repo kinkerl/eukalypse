@@ -1,1 +1,1 @@
-eukalypse
+from eukalypse import Eukalypse
