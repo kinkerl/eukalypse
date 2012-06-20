@@ -1,9 +1,14 @@
 eukalypse
 =========
 
-koalas using koality to fight the eukalypse... and to use pixel-perfect-website-compare-tests(ppwct)!
+koality to fight the eukalypse... and to use pixel-perfect-website-compare-tests(ppwct)!
 
-this is a very simple library to use selenium to make screenshots of websites and compare these screenshots with reference images - what you expect the website should look like - to probe if everything looks fine.
+this library serves 2 mail goals:
+
+* easy way to create screenshots of websites with selenium
+* easy way to create screenshots of websites and compare these to an expected outcome. 
+
+especially feature 2 can be used in and testing/unit-testing environment: "is everything as i expect it to be?"
 
 
 usage
