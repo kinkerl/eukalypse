@@ -14,7 +14,7 @@ installation
 ============
 
 ```bash
-$ sudo pip install -e git+https://github.com/kinkerl/eukalypse.git#egg=eukalypse
+$ pip install -e git+https://github.com/kinkerl/eukalypse.git#egg=eukalypse
 ```
 
 usage
