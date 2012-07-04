@@ -3,7 +3,7 @@ eukalypse
 
 koality to fight the eukalypse... and to use pixel-perfect-website-compare-tests(ppwct)!
 
-this library serves 2 mail goals:
+this library serves 2 main goals:
 
 * easy way to create screenshots of websites with selenium
 * easy way to create screenshots of websites and compare these to an expected outcome. 
@@ -14,7 +14,7 @@ installation
 ============
 
 ```bash
-$ sudo pip install -e git+https://github.com/kinkerl/eukalypse.git#egg=eukalypse
+$ pip install -e git+https://github.com/kinkerl/eukalypse.git#egg=eukalypse
 ```
 
 usage
