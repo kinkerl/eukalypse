@@ -11,7 +11,7 @@ class TestSequenceFunctions(unittest.TestCase):
 	@classmethod
 	def setUpClass(cls):
 		cls.tmp_folder = 'test_tmp'
-		if os.path.isdir(cls.tmp_folder):
+		if os.path.isdir(cls.tmp_folder): # pragma: no cover
 			shutil.rmtree(TestSequenceFunctions.tmp_folder)		
 
 	def setUp(self):
