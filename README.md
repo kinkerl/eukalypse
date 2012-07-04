@@ -38,6 +38,8 @@ for now, please take a look at the testing suit for and indepth usage.
 testing
 ==========
 
+You need a running selenium server( http://seleniumhq.org/download/--> Selenium Server (formerly the Selenium RC Server))  on localhost. 
+
 ```bash
 $ make test
 ```
