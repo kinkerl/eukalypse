@@ -34,3 +34,11 @@ eukalypse_result_object = e.compare('github_eukalypse', 'https://github.com/kink
 ```
 
 for now, please take a look at the testing suit for and indepth usage. 
+
+testing
+==========
+
+```bash
+$ make test
+```
+
