@@ -63,15 +63,14 @@ Example:
 ```python
 e = Eukalypse()
 e.connect()
-
 #the selenium statements we want do run before the screenshot
 statement = """
 driver = self.driver
-driver.get(self.base_url + "/kinkerl/eukalypse")
-driver.find_element_by_id("3e3065b8153e1bab152bf852e72e542726567ea7").click()
+driver.get(self.base_url + "/")
+driver.find_element_by_id("clickme").click()
 """
-e.base_url = 'https://github.com'
-e.execute(statement)
+self.e.base_url = 'http://localhost:8400/'
+self.e.execute(statement)
 e.screenshot('test')
 e.disconnect()
 ```
