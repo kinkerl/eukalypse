@@ -16,6 +16,7 @@ class EukalypseCompareResponse:
         self.reference_img = ''
         self.difference_img = ''
         self.difference_img_improved = ''
+        self.base_url = ''
 
 
 class Eukalypse:
@@ -28,30 +29,46 @@ class Eukalypse:
         self.output = '.'
         self.ignoremask = False
         self.improve_factor = 100
+        self.driver = None
 
     def connect(self):
-        return webdriver.Remote("%s/wd/hub" % self.host,
+        self.driver = webdriver.Remote("%s/wd/hub" % self.host,
                                 desired_capabilities={
                                     "browserName": self.browser,
                                     "platform": self.platform,
                                 })
 
-    def screenshot(self, identifier, target_url):
+    def disconnect(self):
+        try:
+            self.driver.close()
+        except:  # pragma: no cover
+            pass
+
+    def execute(self, statement):
+        """
+        driver = self.driver
+        driver.get(self.base_url + "/kinkerl/eukalypse")
+        driver.find_element_by_link_text("Downloads 0").click()
+        """
+        exec(statement, {"__builtins__":None},{"self":self})
+
+    def screenshot(self, identifier, target_url=None):
         """
         generate a screenshot from a target url
         """
         destination = False
-        browser = self.connect()
+        if not self.driver:
+            self.connect()
         try:
-            browser.set_window_size(self.resolution[0], self.resolution[1])
-            browser.get(target_url)
+            self.driver.set_window_size(self.resolution[0], self.resolution[1])
+            if target_url:
+                self.driver.get(target_url)
             time.sleep(self.wait)
             destination = os.path.join(self.output, "%s.png" % identifier)
-            browser.get_screenshot_as_file(destination)
+            self.driver.get_screenshot_as_file(destination)
         except Exception:  # pragma: no cover
             raise
-        finally:
-            browser.close()
+
         return destination
 
     def compare(self, identifier, target_url, reference_image):

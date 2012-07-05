@@ -16,25 +16,25 @@ class TestSequenceFunctions(unittest.TestCase):
 
 	def setUp(self):
 		os.mkdir(TestSequenceFunctions.tmp_folder)		
+		self.e = Eukalypse()
+		self.e.output = TestSequenceFunctions.tmp_folder
+		self.e.connect()
 
 	def tearDown(self):
-		shutil.rmtree(TestSequenceFunctions.tmp_folder)		
-		
+		self.e.disconnect()
+		shutil.rmtree(TestSequenceFunctions.tmp_folder)
 
 	def test_screenshot(self):
-		e = Eukalypse()
-		e.output = TestSequenceFunctions.tmp_folder
-		screenshot = e.screenshot('github_eukalypse', 'https://github.com/kinkerl/eukalypse')
+
+		screenshot = self.e.screenshot('github_eukalypse', 'https://github.com/kinkerl/eukalypse')
 		#screenshot generated (screenshot is not False but the filename)
 		self.assertTrue(screenshot!=False)
 		#file exists
 		self.assertTrue(os.path.isfile(screenshot))
 
 	def test_compareClean(self):
-		e = Eukalypse()
-		e.output = TestSequenceFunctions.tmp_folder
-		screenshot = e.screenshot('github_eukalypse', 'https://github.com/kinkerl/eukalypse')
-		response = e.compare('github_eukalypse_compare', 'https://github.com/kinkerl/eukalypse', screenshot)
+		screenshot = self.e.screenshot('github_eukalypse', 'https://github.com/kinkerl/eukalypse')
+		response = self.e.compare('github_eukalypse_compare', 'https://github.com/kinkerl/eukalypse', screenshot)
 		self.assertTrue(response.clean)
 		self.assertNotEqual(response.identifier,'')
 		self.assertEqual(response.dirtiness,0)
@@ -55,9 +55,7 @@ class TestSequenceFunctions(unittest.TestCase):
 
 
 	def test_compareTainted(self):
-		e = Eukalypse()
-		e.output = TestSequenceFunctions.tmp_folder
-		screenshot = e.screenshot('github_eukalypse', 'https://github.com/kinkerl/eukalypse')
+		screenshot = self.e.screenshot('github_eukalypse', 'https://github.com/kinkerl/eukalypse')
 		#taint the screenshot to create an error
 		with open(str(screenshot), 'rb') as f:
 			tainted = Image.open(f)
@@ -68,7 +66,7 @@ class TestSequenceFunctions(unittest.TestCase):
 			os.remove(str(screenshot))
 			os.rename(str(screenshot)+".png", str(screenshot))
 
-		response = e.compare('github_eukalypse_compare', 'https://github.com/kinkerl/eukalypse', screenshot)
+		response = self.e.compare('github_eukalypse_compare', 'https://github.com/kinkerl/eukalypse', screenshot)
 		self.assertFalse(response.clean)
 		self.assertNotEqual(response.identifier,'')
 		self.assertNotEqual(response.dirtiness,0)
@@ -85,6 +83,16 @@ class TestSequenceFunctions(unittest.TestCase):
 
 		self.assertNotEqual(response.difference_img_improved,'')
 		self.assertTrue(os.path.isfile(response.difference_img_improved))
+
+	def test_execute(self):
+		statement = """
+driver = self.driver
+driver.get(self.base_url + "/kinkerl/eukalypse")
+driver.find_element_by_id("3e3065b8153e1bab152bf852e72e542726567ea7").click()
+"""
+		self.e.base_url = 'https://github.com'
+		self.e.execute(statement)
+		self.e.screenshot('test')
 
 
 if __name__ == '__main__':
