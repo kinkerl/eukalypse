@@ -7,6 +7,10 @@ import os
 
 
 class EukalypseCompareResponse:
+    """
+    A Response is the result of a comparison. It holds all the information needed to display what happend and what the outcome is.
+    """
+
     def __init__(self):
         self.identifier = ''
         self.clean = True
@@ -32,6 +36,13 @@ class Eukalypse:
         self.driver = None
 
     def connect(self):
+        """
+        Creates a connection to the Selenium Server which exists until it is disconnected.
+        You can execute multiple commands, screenshots or compare within one connection.
+        Chained commands start where the leading command stops.
+        """
+        if self.driver:
+            self.driver.disconnect()
         self.driver = webdriver.Remote("%s/wd/hub" % self.host,
                                 desired_capabilities={
                                     "browserName": self.browser,
@@ -39,8 +50,12 @@ class Eukalypse:
                                 })
 
     def disconnect(self):
+        """
+        If a connection exists, try to disconnect from it.
+        """
         try:
-            self.driver.close()
+            if self.driver:
+                self.driver.close()
         except:  # pragma: no cover
             pass
 
@@ -54,7 +69,10 @@ class Eukalypse:
 
     def screenshot(self, identifier, target_url=None):
         """
-        generate a screenshot from a target url
+        Generate a screenshot of the target_url and save it in the output directory(self.output).
+        The filename will be the identifier + ".png".
+        If no target_url is given, try  to make a screenshot of the current connection state.
+        This is usefull if you start with selenium commands run with execute and want to test or shot the resulting state of the commands.
         """
         destination = False
         if not self.driver:  # pragma: no cover
@@ -72,6 +90,14 @@ class Eukalypse:
         return destination
 
     def compare(self, identifier, reference_image, target_url=None):
+        """
+        Generate a screenshot of the target_url and compare it with the reference image.
+        The filename will be the identifier + ".png".
+        If no target_url is given, try to compare the current connection state.
+        If an error occured, the Response object will not be "clean" and a difference and an improved difference image are created. 
+        The paths to these images are part of the response object.
+        """
+
         response = EukalypseCompareResponse()
         response.identifier = identifier
         response.target_url = target_url

@@ -1,34 +1,34 @@
-eukalypse
+Eukalypse
 =========
 
-koality to fight the eukalypse... and to use pixel-perfect-website-compare-tests(ppwct)!
-
-this library serves 2 main goals:
+Eukalypse is a library to interact with selenium and to keep some of the hassle of screenshot testing away from the user. It serves 2 main goals:
 
 * easy way to create screenshots of websites with selenium
 * easy way to create screenshots of websites and compare these to an expected outcome. 
 
-especially feature 2 can be used in and testing/unit-testing environment: "is everything as i expect it to be?"
+Especially feature 2 can be used in and testing/unit-testing environment: "is everything as i expect it to be?"
 
-installation
+Installation
 ============
+
+You can install eukalypse using pip.
 
 ```bash
 $ pip install -e git+https://github.com/kinkerl/eukalypse.git#egg=eukalypse
 ```
 
-usage
+Usage
 =====
 
-eukalypse can be used to create one or more screenshots, compare screenshots with reference images and, in addtion, can execute selenium testing code beforehand to create the state in the application you want to check.
+Eukalypse can be used to create one or more screenshots, compare screenshots with reference images and, in addtion, can execute selenium testing code beforehand to create the state in the application you want to check.
 
-screenshots
+Screenshots
 -------------
 
 create a screenshot (short version)
 ```python
 e = Eukalypse()
-screenshot = e.screenshot('github_eukalypse', 'https://github.com/kinkerl/eukalypse')
+screenshot = e.screenshot('test', 'http://localhost:8400/')
 e.disconnect()
 ```
 
@@ -40,22 +40,22 @@ e.resolution = (1280, 768)
 e.platform = 'ANY'
 e.host = 'http://localhost:4444'
 e.connect()
-screenshot = e.screenshot('github_eukalypse', 'https://github.com/kinkerl/eukalypse')
+screenshot = e.screenshot('test', 'http://localhost:8400/')
 e.disconnect()
 ```
 
-compare
+Compare 
 -----------
 
 compare a website with a reference image
 ```python
 e = Eukalypse()
-eukalypse_result_object = e.compare('github_eukalypse', 'my_reference_image.png', 'https://github.com/kinkerl/eukalypse')
+eukalypse_result_object = e.compare('test', 'my_reference_image.png', 'http://localhost:8400/')
 e.disconnect()
 ```
 
 
-execute selenium code beforehand
+Cxecute selenium code beforehand
 --------------------------------
 
 Example:
@@ -81,7 +81,7 @@ You can use python test code exported from the Firefox Selenium IDE for python w
 
 For now, please take a look at the testing suit for and indepth usage. 
 
-testing
+Testing
 ==========
 
 You need a running selenium server and a testing webserver on localhost to run the tests. These are included! Change in the "test" directory and start both servers.
@@ -91,7 +91,7 @@ $ java -jar selenium-server*.jar
 $ python test_server.py
 ```
 
-then run the tests
+After the servers are started, you can run the tests.
 
 ```bash
 $ make test
