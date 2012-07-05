@@ -69,8 +69,8 @@ driver = self.driver
 driver.get(self.base_url + "/")
 driver.find_element_by_id("clickme").click()
 """
-self.e.base_url = 'http://localhost:8400/'
-self.e.execute(statement)
+e.base_url = 'http://localhost:8400/'
+e.execute(statement)
 e.screenshot('test')
 e.disconnect()
 ```
