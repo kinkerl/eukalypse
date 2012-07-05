@@ -4,15 +4,17 @@ import os
 import Image
 import ImageDraw
 import shutil
+import subprocess
 
 class TestSequenceFunctions(unittest.TestCase):
 
-
 	@classmethod
 	def setUpClass(cls):
+		# temp testfolder
 		cls.tmp_folder = 'test_tmp'
+		cls.TESTURL = 'http://localhost:8400/'
 		if os.path.isdir(cls.tmp_folder): # pragma: no cover
-			shutil.rmtree(TestSequenceFunctions.tmp_folder)		
+			shutil.rmtree(TestSequenceFunctions.tmp_folder)
 
 	def setUp(self):
 		os.mkdir(TestSequenceFunctions.tmp_folder)		
@@ -25,16 +27,55 @@ class TestSequenceFunctions(unittest.TestCase):
 		shutil.rmtree(TestSequenceFunctions.tmp_folder)
 
 	def test_screenshot(self):
-
-		screenshot = self.e.screenshot('github_eukalypse', 'https://github.com/kinkerl/eukalypse')
-		#screenshot generated (screenshot is not False but the filename)
+		screenshot = self.e.screenshot('test_screenshot', TestSequenceFunctions.TESTURL)
 		self.assertTrue(screenshot!=False)
-		#file exists
 		self.assertTrue(os.path.isfile(screenshot))
 
 	def test_compareClean(self):
-		screenshot = self.e.screenshot('github_eukalypse', 'https://github.com/kinkerl/eukalypse')
-		response = self.e.compare('github_eukalypse_compare', 'https://github.com/kinkerl/eukalypse', screenshot)
+		response = self.e.compare('test_compareClean', 'test/reference_test_screenshot.png', TestSequenceFunctions.TESTURL)
+		self._response_clean(response)
+
+	def test_compareTainted(self):
+		response = self.e.compare('test_compareTainted', 'test/reference_test_screenshot_tainted.png', TestSequenceFunctions.TESTURL)
+		self._response_tainted(response)
+
+	def test_execute(self):
+		statement = """
+driver = self.driver
+driver.get(self.base_url + "/")
+driver.find_element_by_id("clickme").click()
+"""
+		self.e.base_url = TestSequenceFunctions.TESTURL
+		self.e.execute(statement)
+		response = self.e.compare('execute', 'test/reference_test_execute.png')
+		self._response_clean(response)
+
+	def test_execute_row(self):
+		statement = """
+driver = self.driver
+driver.get(self.base_url + "/")
+driver.find_element_by_css_selector('input[type="text"]').clear()
+driver.find_element_by_css_selector('input[type="text"]').send_keys("asd")
+"""
+
+		self.e.base_url = TestSequenceFunctions.TESTURL
+		self.e.execute(statement)
+		response = self.e.compare('execute_row1', 'test/reference_test_execute_row1.png')
+		self._response_clean(response)
+
+		statement = """
+driver = self.driver
+driver.find_element_by_css_selector('input[type="submit"]').click()
+"""
+
+		self.e.base_url = TestSequenceFunctions.TESTURL
+		self.e.execute(statement)
+		response = self.e.compare('execute_row2', 'test/reference_test_execute.png')
+		self._response_clean(response)
+
+
+
+	def _response_clean(self, response):
 		self.assertTrue(response.clean)
 		self.assertNotEqual(response.identifier,'')
 		self.assertEqual(response.dirtiness,0)
@@ -53,20 +94,7 @@ class TestSequenceFunctions(unittest.TestCase):
 		self.assertEqual(response.difference_img_improved,'')
 		self.assertTrue(not os.path.isfile(response.difference_img_improved))
 
-
-	def test_compareTainted(self):
-		screenshot = self.e.screenshot('github_eukalypse', 'https://github.com/kinkerl/eukalypse')
-		#taint the screenshot to create an error
-		with open(str(screenshot), 'rb') as f:
-			tainted = Image.open(f)
-			draw = ImageDraw.Draw(tainted)
-			draw.rectangle([0, 0, 40, 40 ],  fill="green")
-			tainted.save(screenshot+".png")
-			del draw, tainted
-			os.remove(str(screenshot))
-			os.rename(str(screenshot)+".png", str(screenshot))
-
-		response = self.e.compare('github_eukalypse_compare', 'https://github.com/kinkerl/eukalypse', screenshot)
+	def _response_tainted(self, response):
 		self.assertFalse(response.clean)
 		self.assertNotEqual(response.identifier,'')
 		self.assertNotEqual(response.dirtiness,0)
@@ -83,17 +111,6 @@ class TestSequenceFunctions(unittest.TestCase):
 
 		self.assertNotEqual(response.difference_img_improved,'')
 		self.assertTrue(os.path.isfile(response.difference_img_improved))
-
-	def test_execute(self):
-		statement = """
-driver = self.driver
-driver.get(self.base_url + "/kinkerl/eukalypse")
-driver.find_element_by_id("3e3065b8153e1bab152bf852e72e542726567ea7").click()
-"""
-		self.e.base_url = 'https://github.com'
-		self.e.execute(statement)
-		self.e.screenshot('test')
-
 
 if __name__ == '__main__':
 	unittest.main()

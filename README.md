@@ -50,7 +50,7 @@ compare
 compare a website with a reference image
 ```python
 e = Eukalypse()
-eukalypse_result_object = e.compare('github_eukalypse', 'https://github.com/kinkerl/eukalypse', 'my_reference_image.png')
+eukalypse_result_object = e.compare('github_eukalypse', 'my_reference_image.png', 'https://github.com/kinkerl/eukalypse')
 e.disconnect()
 ```
 
@@ -85,7 +85,14 @@ For now, please take a look at the testing suit for and indepth usage.
 testing
 ==========
 
-You need a running selenium server( http://seleniumhq.org/download/--> Selenium Server (formerly the Selenium RC Server))  on localhost. 
+You need a running selenium server and a testing webserver on localhost to run the tests. These are included! Change in the "test" directory and start both servers.
+
+```bash
+$ java -jar selenium-server*.jar
+$ python test_server.py
+```
+
+then run the tests
 
 ```bash
 $ make test

@@ -57,7 +57,7 @@ class Eukalypse:
         generate a screenshot from a target url
         """
         destination = False
-        if not self.driver:
+        if not self.driver:  # pragma: no cover
             self.connect()
         try:
             self.driver.set_window_size(self.resolution[0], self.resolution[1])
@@ -71,7 +71,7 @@ class Eukalypse:
 
         return destination
 
-    def compare(self, identifier, target_url, reference_image):
+    def compare(self, identifier, reference_image, target_url=None):
         response = EukalypseCompareResponse()
         response.identifier = identifier
         response.target_url = target_url
