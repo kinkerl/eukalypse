@@ -42,6 +42,7 @@ e.host = 'http://localhost:4444'
 e.connect()
 screenshot = e.screenshot('github_eukalypse', 'https://github.com/kinkerl/eukalypse')
 e.disconnect()
+```
 
 compare
 -----------
