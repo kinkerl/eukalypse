@@ -97,3 +97,4 @@ After the servers are started, you can run the tests.
 $ make test
 ```
 
+The reference images are created on Ubuntu 12.04. If you are NOT running Ubuntu 12.04, most of these tests might fail due to different font renderings on other operating systems.
