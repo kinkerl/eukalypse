@@ -63,6 +63,23 @@ class TestSequenceFunctions(unittest.TestCase):
 		response = self.e.compare('test_compareClean', 'test/reference_test_screenshot.png', TestSequenceFunctions.TESTURL)
 		self._response_clean(response)
 
+	def test_compareCleanSmallReference(self):
+		response = self.e.compare('test_compareCleanSmallReference', 'test/reference_test_screenshot_tosmall.png', TestSequenceFunctions.TESTURL)
+		self._response_clean(response)
+
+	def test_compareCleanLargeReference(self):
+		response = self.e.compare('test_compareCleanLargeReference', 'test/reference_test_screenshot_tolarge.png', TestSequenceFunctions.TESTURL)
+		self._response_clean(response)
+
+	def test_compareCleanLargeReferenceTainted(self):
+		response = self.e.compare('test_compareCleanLargeReferenceTainted', 'test/reference_test_screenshot_tolarge2.png', TestSequenceFunctions.TESTURL)
+		self._response_clean(response)
+
+
+	def test_compareCleanLargeReferenceTainted2(self):
+		response = self.e.compare('test_compareCleanLargeReferenceTainted2', 'test/reference_test_screenshot_tolarge3.png', TestSequenceFunctions.TESTURL)
+		self._response_tainted(response)
+
 	def test_compareTainted(self):
 		"""
 		Match against a tainted screenshot and get the error.
@@ -75,7 +92,6 @@ class TestSequenceFunctions(unittest.TestCase):
 		Match against a tainted screenshot but use a ignore mask to 
 		cut out the expected error.
 		"""
-		self.e.output = '.'
 		response = self.e.compare('test_compareTaintedMask', 'test/reference_test_screenshot_tainted.png', TestSequenceFunctions.TESTURL, 'test/reference_test_screenshot_tainted_mask.png')
 		self._response_clean(response)
 
@@ -83,8 +99,21 @@ class TestSequenceFunctions(unittest.TestCase):
 		"""
 		Match with a "wrong" irgnore mask and expect a tainted error
 		"""
-		self.e.output = '.'
 		response = self.e.compare('test_compareTaintedMask2', 'test/reference_test_screenshot_tainted.png', TestSequenceFunctions.TESTURL, 'test/reference_test_screenshot_tainted_mask2.png')
+		self._response_tainted(response)
+
+
+	def test_compareTaintedMask3(self):
+		response = self.e.compare('test_compareTaintedMask3', 'test/reference_test_screenshot_tainted.png', TestSequenceFunctions.TESTURL, 'test/reference_test_screenshot_tainted_mask_stretch.png')
+		self._response_clean(response)
+
+	def test_compareTaintedMask4(self):
+		self.e.output = '.'
+		response = self.e.compare('test_compareTaintedMask4', 'test/reference_test_screenshot_tainted.png', TestSequenceFunctions.TESTURL, 'test/reference_test_screenshot_tainted_mask_stretch2.png')
+		self._response_clean(response)
+
+	def test_compareTaintedMask5(self):
+		response = self.e.compare('test_compareTaintedMask5', 'test/reference_test_screenshot_tainted.png', TestSequenceFunctions.TESTURL, 'test/reference_test_screenshot_tainted_mask_stretch3.png')
 		self._response_tainted(response)
 
 	def test_execute(self):
@@ -123,7 +152,6 @@ driver = self.driver
 driver.find_element_by_css_selector('input[type="submit"]').click()
 """
 
-		self.e.base_url = TestSequenceFunctions.TESTURL
 		self.e.execute(statement)
 		response = self.e.compare('execute_row2', 'test/reference_test_execute.png')
 		self._response_clean(response)
