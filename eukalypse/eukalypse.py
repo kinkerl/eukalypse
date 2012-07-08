@@ -31,7 +31,6 @@ class Eukalypse:
         self.platform = 'ANY'
         self.host = 'http://localhost:4444'
         self.output = '.'
-        self.ignoremask = False
         self.improve_factor = 100
         self.driver = None
 
@@ -42,7 +41,7 @@ class Eukalypse:
         Chained commands start where the leading command stops.
         """
         if self.driver:
-            self.driver.disconnect()
+            self.driver.close()
         self.driver = webdriver.Remote("%s/wd/hub" % self.host,
                                 desired_capabilities={
                                     "browserName": self.browser,
@@ -56,6 +55,7 @@ class Eukalypse:
         try:
             if self.driver:
                 self.driver.close()
+                self.driver = None
         except:  # pragma: no cover
             pass
 
@@ -75,7 +75,7 @@ class Eukalypse:
         This is usefull if you start with selenium commands run with execute and want to test or shot the resulting state of the commands.
         """
         destination = False
-        if not self.driver:  # pragma: no cover
+        if not self.driver:
             self.connect()
         try:
             self.driver.set_window_size(self.resolution[0], self.resolution[1])
@@ -89,7 +89,7 @@ class Eukalypse:
 
         return destination
 
-    def compare(self, identifier, reference_image, target_url=None):
+    def compare(self, identifier, reference_image, target_url=None, ignoremask=None):
         """
         Generate a screenshot of the target_url and compare it with the reference image.
         The filename will be the identifier + ".png".
@@ -113,8 +113,8 @@ class Eukalypse:
 
         #if an ignoremask exist, multiply it with the difference. this makes
         #everything black in the diff which is black in the ignoremask
-        if self.ignoremask:
-            imignore = Image.open(self.ignoremask)
+        if ignoremask:
+            imignore = Image.open(ignoremask)
             diff = ImageChops.multiply(imignore, diff)
         colors = diff.getcolors(diff.size[0] * diff.size[1])
 

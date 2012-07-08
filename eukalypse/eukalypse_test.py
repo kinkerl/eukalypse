@@ -26,8 +26,26 @@ class TestSequenceFunctions(unittest.TestCase):
 		self.e.disconnect()
 		shutil.rmtree(TestSequenceFunctions.tmp_folder)
 
+	def test_reconnect(self):
+		self.assertTrue(self.e.driver!=False)
+		self.e.connect()
+		self.assertTrue(self.e.driver!=False)
+
+	def test_disconnect(self):
+		self.assertTrue(self.e.driver!=False)
+		self.e.disconnect()
+		self.assertTrue(self.e.driver==None)
+
 	def test_screenshot(self):
 		screenshot = self.e.screenshot('test_screenshot', TestSequenceFunctions.TESTURL)
+		self.assertTrue(screenshot!=False)
+		self.assertTrue(os.path.isfile(screenshot))
+
+	def test_screenshot_connect(self):
+		self.assertTrue(self.e.driver!=False)
+		self.e.disconnect()
+		self.assertTrue(self.e.driver==None)
+		screenshot = self.e.screenshot('test_screenshot_connect', TestSequenceFunctions.TESTURL)
 		self.assertTrue(screenshot!=False)
 		self.assertTrue(os.path.isfile(screenshot))
 
@@ -37,6 +55,19 @@ class TestSequenceFunctions(unittest.TestCase):
 
 	def test_compareTainted(self):
 		response = self.e.compare('test_compareTainted', 'test/reference_test_screenshot_tainted.png', TestSequenceFunctions.TESTURL)
+		self._response_tainted(response)
+
+	def test_compareTaintedMask(self):
+		self.e.output = '.'
+		response = self.e.compare('test_compareTaintedMask', 'test/reference_test_screenshot_tainted.png', TestSequenceFunctions.TESTURL, 'test/reference_test_screenshot_tainted_mask.png')
+		self._response_clean(response)
+
+	def test_compareTaintedMask2(self):
+		"""
+		Match with a not "wrong" irgnore mask and expect a tainted error
+		"""
+		self.e.output = '.'
+		response = self.e.compare('test_compareTaintedMask2', 'test/reference_test_screenshot_tainted.png', TestSequenceFunctions.TESTURL, 'test/reference_test_screenshot_tainted_mask2.png')
 		self._response_tainted(response)
 
 	def test_execute(self):
