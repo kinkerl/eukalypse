@@ -55,7 +55,7 @@ e.disconnect()
 ```
 
 
-Cxecute selenium code beforehand
+Execute selenium code beforehand
 --------------------------------
 
 Example1 :
