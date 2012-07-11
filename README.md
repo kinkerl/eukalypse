@@ -84,8 +84,7 @@ You can, of course, use the webdriver object direcly:
 ```python
 e = Eukalypse()
 e.connect()
-e.base_url = 'http://localhost:8400/'
-e.driver.get(self.base_url + "/")
+e.driver.get('http://localhost:8400/')
 e.driver.find_element_by_id("clickme").click()
 e.screenshot('test')
 e.disconnect()
