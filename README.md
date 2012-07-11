@@ -58,7 +58,7 @@ e.disconnect()
 Cxecute selenium code beforehand
 --------------------------------
 
-Example:
+Example1 :
 
 ```python
 e = Eukalypse()
@@ -76,8 +76,20 @@ e.disconnect()
 ```
 
 You have access to "self" which is the eukalypse instance.
-You can use python test code exported from the Firefox Selenium IDE for python webdriver.
+Exported python test code from the Firefox Selenium IDE for python webdriver can be used.
 
+
+You can, of course, use the webdriver object direcly:
+
+```python
+e = Eukalypse()
+e.connect()
+e.base_url = 'http://localhost:8400/'
+e.driver.get(self.base_url + "/")
+e.driver.find_element_by_id("clickme").click()
+e.screenshot('test')
+e.disconnect()
+```
 
 For now, please take a look at the testing suit for and indepth usage. 
 
