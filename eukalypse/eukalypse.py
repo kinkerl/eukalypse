@@ -107,14 +107,36 @@ class Eukalypse:
         response.target_img = target_image
 
         im1 = Image.open(target_image)
-        im2 = Image.open(reference_image)
+        target_size = im1.size
+        
+        
+        ref_image = Image.open(reference_image)
+        ref_size = ref_image.size
+        
+        if target_size[0] > ref_size[0]:
+            im1 = im1.crop((0,0, ref_size[0], target_size[1]))
+        
+        
+        if target_size[1] > ref_size[1]:
+            im1 = im1.crop((0,0, target_size[0], ref_size[1]))
+        
+        
+        im2 = Image.new('RGB', target_size, (0,0,0))
+        im2.paste(ref_image, (0, 0, ref_size[0], ref_size[1]))
 
         diff = ImageChops.difference(im2, im1)
 
         #if an ignoremask exist, multiply it with the difference. this makes
         #everything black in the diff which is black in the ignoremask
         if ignoremask:
-            imignore = Image.open(ignoremask)
+            imignore_raw = Image.open(ignoremask)
+            
+        
+            ignore_size = imignore_raw.size
+            diff_size = diff.size
+            imignore = Image.new('RGB', diff_size, (0,0,0))
+            imignore.paste(imignore_raw, (0, 0, ignore_size[0], ignore_size[1]))
+        
             diff = ImageChops.multiply(imignore, diff)
         colors = diff.getcolors(diff.size[0] * diff.size[1])
 

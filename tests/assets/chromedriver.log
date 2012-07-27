@@ -1,0 +1,79 @@
+[0.000][INFO]:      ChromeDriver 21.0.1180.4 /home/desch/devel/private_eukalypse/eukalypse/tests/assets/chromedriver
+[0.484][FINE]:      Initializing session with capabilities {
+   "browserName": "chrome",
+   "platform": "ANY"
+}
+
+[0.485][INFO]:      Launching chrome: /opt/google/chrome/google-chrome --disable-hang-monitor --disable-prompt-on-repost --dom-automation --full-memory-crash-report --no-default-browser-check --no-first-run --ignore-certificate-errors --disable-popup-blocking --homepage=about:blank
+[0.845][INFO]:      Connected to Chrome successfully. Version: 20.0.1132.57
+[0.852][FINE]:      Command received (/session/126f99b5f363efb220687be1d1b906ce)
+[0.852][FINE]:      Command finished (/session/126f99b5f363efb220687be1d1b906ce) with response {
+   "sessionId": "126f99b5f363efb220687be1d1b906ce",
+   "status": 0,
+   "value": {
+      "acceptSslCerts": false,
+      "applicationCacheEnabled": false,
+      "browserConnectionEnabled": false,
+      "browserName": "chrome",
+      "chrome.chromedriverVersion": "21.0.1180.4",
+      "chrome.nativeEvents": false,
+      "cssSelectorsEnabled": true,
+      "databaseEnabled": false,
+      "handlesAlerts": true,
+      "javascriptEnabled": true,
+      "locationContextEnabled": false,
+      "nativeEvents": true,
+      "platform": "linux",
+      "rotatable": false,
+      "takesScreenshot": true,
+      "version": "20.0.1132.57",
+      "webStorageEnabled": true
+   }
+}
+
+[0.857][FINE]:      Command received (/session/126f99b5f363efb220687be1d1b906ce/window/current/size) with params {
+   "height": 768,
+   "width": 1280,
+   "windowHandle": "current"
+}
+
+[0.857][FINER]:     Waiting for all views to stop loading...
+[0.857][FINER]:     Done waiting for all views to stop loading
+[0.865][FINER]:     Waiting for all views to stop loading...
+[0.865][FINER]:     Done waiting for all views to stop loading
+[0.865][FINE]:      Command finished (/session/126f99b5f363efb220687be1d1b906ce/window/current/size) with response {
+   "sessionId": "126f99b5f363efb220687be1d1b906ce",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[0.869][FINE]:      Command received (/session/126f99b5f363efb220687be1d1b906ce/url) with params {
+   "url": "http://localhost:8400/"
+}
+
+[0.869][FINER]:     Waiting for all views to stop loading...
+[0.892][FINER]:     Done waiting for all views to stop loading
+[1.025][FINER]:     Waiting for all views to stop loading...
+[1.038][FINER]:     Done waiting for all views to stop loading
+[1.039][FINE]:      Command finished (/session/126f99b5f363efb220687be1d1b906ce/url) with response {
+   "sessionId": "126f99b5f363efb220687be1d1b906ce",
+   "status": 0,
+   "value": {
+
+   }
+}
+
+[1.042][FINE]:      Command received (/session/126f99b5f363efb220687be1d1b906ce/screenshot)
+[1.042][FINER]:     Waiting for all views to stop loading...
+[1.042][FINER]:     Done waiting for all views to stop loading
+[1.083][FINER]:     Waiting for all views to stop loading...
+[1.083][FINER]:     Done waiting for all views to stop loading
+[1.083][FINE]:      Command finished (/session/126f99b5f363efb220687be1d1b906ce/screenshot) with response {
+   "sessionId": "126f99b5f363efb220687be1d1b906ce",
+   "status": 0,
+   "value": "iVBORw0KGgoAAAANSUhEUgAABPgAAAKvCAIAAAB4fua4AAAgAElEQVR4nO3dfZiV5X3g8XveB2cYBhhgZBDEQXHAwBQVNdKq7..."
+}
+
+[1.089][FINE]:      Command received (/session/126f99b5f363efb220687be1d1b906ce/window)

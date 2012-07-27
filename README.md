@@ -95,10 +95,10 @@ For now, please take a look at the testing suit for and indepth usage.
 Testing
 ==========
 
-You need a running selenium server and a testing webserver on localhost to run the tests. These are included! Change in the "test" directory and start both servers.
+You need the webbrower chrome, a running selenium server and a testing webserver on localhost to run the tests. These are included! Change in the "tests/assets/" directory and start the selenium and the testing webserver.
 
 ```bash
-$ java -jar selenium-server*.jar
+$ java -Dwebdriver.chrome.driver=chromedriver -jar selenium-server*.jar
 $ python test_server.py
 ```
 
