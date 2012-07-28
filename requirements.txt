@@ -2,3 +2,4 @@ selenium
 nose
 converage
 pep8
+lettuce
