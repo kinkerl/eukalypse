@@ -27,4 +27,4 @@ def setUp(feature):
 @after.each_feature
 def tearDown(feature):
 	world.e.disconnect()
-	#shutil.rmtree(world.tmp_folder)
+	shutil.rmtree(world.tmp_folder)

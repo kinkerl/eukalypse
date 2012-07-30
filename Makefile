@@ -6,6 +6,9 @@ test_unit:
 test_feature:
 	cd tests && lettuce
 
+test_pep8:
+	pep8 eukalypse/eukalypse.py
+
 
 test: test_unit, test_feature
 

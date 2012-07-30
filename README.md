@@ -98,14 +98,16 @@ Testing
 You need the webbrower chrome, a running selenium server and a testing webserver on localhost to run the tests. These are included! Change in the "tests/assets/" directory and start the selenium and the testing webserver.
 
 ```bash
-$ java -Dwebdriver.chrome.driver=chromedriver -jar selenium-server*.jar
-$ python test_server.py
+$ make start_server_selenium
+$ make start_server_web
 ```
 
 After the servers are started, you can run the tests.
 
 ```bash
-$ make test
+$ make test_feature
+$ make test_unit
+$ make test_pep8
 ```
 
 The reference images are created on Ubuntu 12.04. If you are NOT running Ubuntu 12.04, most of these tests might fail due to different font renderings on other operating systems.
