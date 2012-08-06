@@ -11,7 +11,7 @@ Especially feature 2 can be used in and testing/unit-testing environment: "is ev
 Installation
 ============
 
-You can install eukalypse using pip.
+You only need the eukalypse/eukalypse.py file in a place where your script will find it. Everything else is just candy. If you are lazy or care about the candy, install eukalypse using pip:
 
 ```bash
 $ pip install -e git+https://github.com/kinkerl/eukalypse.git#egg=eukalypse
@@ -21,6 +21,8 @@ Usage
 =====
 
 Eukalypse can be used to create one or more screenshots, compare screenshots with reference images and, in addtion, can execute selenium testing code beforehand to create the state in the application you want to check.
+
+You need a running selenium server somewhere. In this examples, it is asumed the server is running on localhost and the development test webserver is running on localhost as well. 
 
 Screenshots
 -------------
@@ -95,7 +97,7 @@ For now, please take a look at the testing suit for and indepth usage.
 Testing
 ==========
 
-You need the webbrower chrome, a running selenium server and a testing webserver on localhost to run the tests. These are included! Change in the "tests/assets/" directory and start the selenium and the testing webserver.
+You need the webbrower chrome, a running selenium server and a testing webserver on localhost to run the tests. These are included! 
 
 ```bash
 $ make start_server_selenium
@@ -110,4 +112,8 @@ $ make test_unit
 $ make test_pep8
 ```
 
-The reference images are created on Ubuntu 12.04. If you are NOT running Ubuntu 12.04, most of these tests might fail due to different font renderings on other operating systems.
+The reference images are created on Ubuntu 12.04 in Chrome. If you are NOT running Ubuntu 12.04, most of these tests might fail due to different font renderings on other operating systems. You can create new reference images of your own which will overwrite the existing ones in tests/assets.
+
+```bash
+$ make generate_reference_screenshots
+```
