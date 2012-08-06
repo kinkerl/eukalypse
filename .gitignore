@@ -1,3 +1,7 @@
+tests/assets/chromedriver.log
+tests/assets/test_tmp/
+
+
 *.py[co]
 *~
 

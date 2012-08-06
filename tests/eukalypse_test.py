@@ -27,7 +27,7 @@ class TestSequenceFunctions(unittest.TestCase):
 
 	def tearDown(self):
 		self.e.disconnect()
-		shutil.rmtree(TestSequenceFunctions.tmp_folder)
+		#shutil.rmtree(TestSequenceFunctions.tmp_folder)
 
 	def test_reconnect(self):
 		self.assertTrue(self.e.driver!=False)
@@ -131,7 +131,7 @@ driver.find_element_by_id("clickme").click()
 """
 		self.e.base_url = TestSequenceFunctions.TESTURL
 		self.e.execute(statement)
-		response = self.e.compare('execute', 'tests/assets/reference_test_execute.png')
+		response = self.e.compare('execute', 'tests/assets/reference_test_screenshot_index2.png')
 		self._response_clean(response)
 
 	def test_execute_row(self):
@@ -149,7 +149,7 @@ driver.find_element_by_css_selector('input[type="text"]').send_keys("asd")
 
 		self.e.base_url = TestSequenceFunctions.TESTURL
 		self.e.execute(statement)
-		response = self.e.compare('execute_row1', 'tests/assets/reference_test_execute_row1.png')
+		response = self.e.compare('execute_row1', 'tests/assets/reference_test_screenshot_input.png')
 		self._response_clean(response)
 
 		statement = """
@@ -158,7 +158,7 @@ driver.find_element_by_css_selector('input[type="submit"]').click()
 """
 
 		self.e.execute(statement)
-		response = self.e.compare('execute_row2', 'tests/assets/reference_test_execute.png')
+		response = self.e.compare('execute_row2', 'tests/assets/reference_test_screenshot_index2.png')
 		self._response_clean(response)
 
 

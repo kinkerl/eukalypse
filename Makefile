@@ -16,4 +16,7 @@ start_server_selenium:
 	cd tests/assets/ && java -Dwebdriver.chrome.driver=chromedriver -jar selenium*.jar
 
 start_server_web:
-	cd tests/assets/ && python test_server.py
+	cd tests/assets/webroot && python ../test_server.py
+
+generate_reference_screenshots:
+	python tests/generate_test_images.py
