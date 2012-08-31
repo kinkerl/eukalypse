@@ -1,7 +1,8 @@
 all: test
 
 test_unit:
-	nosetests --with-coverage --cover-package=eukalypse --cover-html --cover-tests tests.eukalypse_test
+	py.test tests/eukalypse_test.py
+#nosetests --with-coverage --cover-package=eukalypse --cover-html --cover-tests tests.eukalypse_test
 
 test_feature:
 	cd tests && lettuce

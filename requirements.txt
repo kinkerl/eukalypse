@@ -1,6 +1,6 @@
 selenium
-nose
-coverage
 pep8
+pytest
+pytest-cov
 lettuce
 PIL
