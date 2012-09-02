@@ -1,7 +1,7 @@
 all: test
 
 test_unit:
-	py.test tests/eukalypse_test.py
+	cd tests && py.test eukalypse_test.py
 #nosetests --with-coverage --cover-package=eukalypse --cover-html --cover-tests tests.eukalypse_test
 
 test_feature:
