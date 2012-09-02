@@ -9,6 +9,7 @@ CLEAN_TMP_DIR = config['clean_tmp_dir']
 TEST_URL = config['test_url']
 TMP_DIR = config['tmp_dir']
 
+
 def setup_module(module):
     """ setup any state specific to the execution of the given module."""
     if CLEAN_TMP_DIR and os.path.isdir(TMP_DIR):  # pragma: no cover
@@ -16,12 +17,11 @@ def setup_module(module):
     if not os.path.isdir(TMP_DIR):
         os.mkdir(TMP_DIR)
 
+
 def teardown_module(module):
     """ teardown any state that was previously setup with a setup_module method. """
     if CLEAN_TMP_DIR:
         shutil.rmtree(TMP_DIR)
-
-
 
 
 def test_reconnect(eukalypse):
@@ -29,10 +29,12 @@ def test_reconnect(eukalypse):
     eukalypse.connect()
     assert eukalypse.driver is not False
 
+
 def test_disconnect(eukalypse):
     assert eukalypse.driver is not False
     eukalypse.disconnect()
     assert eukalypse.driver is None
+
 
 def test_screenshot(eukalypse, test_url):
     """
@@ -41,6 +43,7 @@ def test_screenshot(eukalypse, test_url):
     screenshot = eukalypse.screenshot('test_screenshot', test_url)
     assert screenshot is not False
     assert os.path.isfile(screenshot)
+
 
 def test_screenshot_connect(eukalypse, test_url):
     """
@@ -54,6 +57,7 @@ def test_screenshot_connect(eukalypse, test_url):
     assert screenshot is not False
     assert os.path.isfile(screenshot)
 
+
 def test_compareClean(eukalypse, test_url):
     """
     Match against a clean screenshot and expect no error.
@@ -61,21 +65,26 @@ def test_compareClean(eukalypse, test_url):
     response = eukalypse.compare('test_compareClean', 'assets/reference_test_screenshot.png', test_url)
     _response_clean(response)
 
+
 def test_compareCleanSmallReference(eukalypse, test_url):
     response = eukalypse.compare('test_compareCleanSmallReference', 'assets/reference_test_screenshot_tosmall.png', test_url)
     _response_clean(response)
+
 
 def test_compareCleanLargeReference(eukalypse, test_url):
     response = eukalypse.compare('test_compareCleanLargeReference', 'assets/reference_test_screenshot_tolarge.png', test_url)
     _response_clean(response)
 
+
 def test_compareCleanLargeReferenceTainted(eukalypse, test_url):
     response = eukalypse.compare('test_compareCleanLargeReferenceTainted', 'assets/reference_test_screenshot_tolarge2.png', test_url)
     _response_clean(response)
 
+
 def test_compareCleanLargeReferenceTainted2(eukalypse, test_url):
     response = eukalypse.compare('test_compareCleanLargeReferenceTainted2', 'assets/reference_test_screenshot_tolarge3.png', test_url)
     _response_tainted(response)
+
 
 def test_compareTainted(eukalypse, test_url):
     """
@@ -83,6 +92,7 @@ def test_compareTainted(eukalypse, test_url):
     """
     response = eukalypse.compare('test_compareTainted', 'assets/reference_test_screenshot_tainted.png', test_url)
     _response_tainted(response)
+
 
 def test_compareTaintedMask(eukalypse, test_url):
     """
@@ -92,6 +102,7 @@ def test_compareTaintedMask(eukalypse, test_url):
     response = eukalypse.compare('test_compareTaintedMask', 'assets/reference_test_screenshot_tainted.png', test_url, 'assets/reference_test_screenshot_tainted_mask.png')
     _response_clean(response)
 
+
 def test_compareTaintedMask2(eukalypse, test_url):
     """
     Match with a "wrong" irgnore mask and expect a tainted error
@@ -99,17 +110,21 @@ def test_compareTaintedMask2(eukalypse, test_url):
     response = eukalypse.compare('test_compareTaintedMask2', 'assets/reference_test_screenshot_tainted.png', test_url, 'assets/reference_test_screenshot_tainted_mask2.png')
     _response_tainted(response)
 
+
 def test_compareTaintedMask3(eukalypse, test_url):
     response = eukalypse.compare('test_compareTaintedMask3', 'assets/reference_test_screenshot_tainted.png', test_url, 'assets/reference_test_screenshot_tainted_mask_stretch.png')
     _response_clean(response)
+
 
 def test_compareTaintedMask4(eukalypse, test_url):
     response = eukalypse.compare('test_compareTaintedMask4', 'assets/reference_test_screenshot_tainted.png', test_url, 'assets/reference_test_screenshot_tainted_mask_stretch2.png')
     _response_clean(response)
 
+
 def test_compareTaintedMask5(eukalypse, test_url):
     response = eukalypse.compare('test_compareTaintedMask5', 'assets/reference_test_screenshot_tainted.png', test_url, 'assets/reference_test_screenshot_tainted_mask_stretch3.png')
     _response_tainted(response)
+
 
 def test_execute(eukalypse, test_url):
     """
@@ -125,6 +140,7 @@ driver.find_element_by_id("clickme").click()
     eukalypse.execute(statement)
     response = eukalypse.compare('execute', 'assets/reference_test_screenshot_index2.png')
     _response_clean(response)
+
 
 def test_execute_row(eukalypse, test_url):
     """
@@ -153,6 +169,7 @@ driver.find_element_by_css_selector('input[type="submit"]').click()
     response = eukalypse.compare('execute_row2', 'assets/reference_test_screenshot_index2.png')
     _response_clean(response)
 
+
 def _response_clean(response):
     """
     Helper function to check if a response object is clean and
@@ -176,6 +193,7 @@ def _response_clean(response):
     assert response.difference_img_improved == ''
     assert not os.path.isfile(response.difference_img_improved)
 
+
 def _response_tainted(response):
     """
     Helper function to check if a response object is tainted,
@@ -197,4 +215,3 @@ def _response_tainted(response):
 
     assert response.difference_img_improved != ''
     assert os.path.isfile(response.difference_img_improved)
-
