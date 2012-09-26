@@ -1,12 +1,22 @@
 Eukalypse
-=========
+===========
 
-Eukalypse is a library to interact with selenium and to keep some of the hassle of screenshot testing away from the user. It serves 2 main goals:
+Eukalypse is a library to keep the hassle of websites litmus tests away from the developer. It serves 2 main goals:
 
-* easy way to create screenshots of websites with selenium
-* easy way to create screenshots of websites and compare these to an expected outcome. 
+* easy way to create screenshots of websites - boring
+* easy way to create screenshots of websites and compare these to an expected outcome - interesting!! 
 
-Especially feature 2 can be used in and testing/unit-testing environment: "is everything as i expect it to be?"
+Feature 2 can be used in and a testing environment: "is everything as i expect it to be?"
+Technical speaking: Are the pixels of the current generated screenshot of a website the same as in the reference screenshot I created and verified in advance.
+You can write tests using Eukalypse to verify your expections.
+If you dont want to write tests or maintain a testing system yourself, you can use EukalypseNow. 
+It is an experimental stand-alone tool to regulary check your sites and inform you about changes in the pixels!
+
+And dont worry. I know content changes are pixel changes as well. Sometimes these changes needed to be tracked, sometimes they do not.
+You can use the experimental feature of image masks to ignore changes in the masked areas.
+
+You can supply features, bugs and patches at github: https//github.com/kinkerl/eukalypse  
+
 
 Installation
 ============
@@ -16,6 +26,8 @@ You only need the eukalypse/eukalypse.py file in a place where your script will 
 ```bash
 $ pip install -e git+https://github.com/kinkerl/eukalypse.git#egg=eukalypse
 ```
+
+You may have to install the requirements in the requirements.txt as well. I have to streamline and clean up the installation process.
 
 Usage
 =====

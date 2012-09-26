@@ -1,6 +1,7 @@
 selenium
-nose
-coverage
+pytest
+pytest-cov
 pep8
 lettuce
 PIL
+configobj

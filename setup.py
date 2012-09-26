@@ -12,7 +12,7 @@ setup(
     url='https://github.com/kinkerl/eukalypse',
     include_package_data=True,
     license='MIT',
-    description='koality to fight the eukalypse... and to use pixel-perfect-website-compare-tests(ppwct)!',
+    description='Compare websites to images of websites and spots the difference.',
     long_description=open('README.md').read(),
     zip_safe=False,
     install_requires=['selenium'],
