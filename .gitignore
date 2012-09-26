@@ -31,3 +31,7 @@ cover
 
 #Mr Developer
 .mr.developer.cfg
+
+tests/assets/reference_test*png
+.directory
+report
