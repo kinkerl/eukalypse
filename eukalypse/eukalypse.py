@@ -42,11 +42,7 @@ class Eukalypse:
         """
         if self.driver:
             self.driver.close()
-        self.driver = webdriver.Remote("%s/wd/hub" % self.host,
-                                desired_capabilities={
-                                    "browserName": self.browser,
-                                    "platform": self.platform,
-                                })
+        self.driver = webdriver.Remote("%s/wd/hub" % self.host, desired_capabilities={"browserName": self.browser, "platform": self.platform})
 
     def disconnect(self):
         """
@@ -65,7 +61,7 @@ class Eukalypse:
         driver.get(self.base_url + "/kinkerl/eukalypse")
         driver.find_element_by_link_text("Downloads 0").click()
         """
-        exec(statement, {"__builtins__":None},{"self":self})
+        exec(statement, {"__builtins__": None}, {"self": self})
 
     def screenshot(self, identifier, target_url=None):
         """
@@ -94,7 +90,7 @@ class Eukalypse:
         Generate a screenshot of the target_url and compare it with the reference image.
         The filename will be the identifier + ".png".
         If no target_url is given, try to compare the current connection state.
-        If an error occured, the Response object will not be "clean" and a difference and an improved difference image are created. 
+        If an error occured, the Response object will not be "clean" and a difference and an improved difference image are created.
         The paths to these images are part of the response object.
         """
 
@@ -108,20 +104,17 @@ class Eukalypse:
 
         im1 = Image.open(target_image)
         target_size = im1.size
-        
-        
+
         ref_image = Image.open(reference_image)
         ref_size = ref_image.size
-        
+
         if target_size[0] > ref_size[0]:
-            im1 = im1.crop((0,0, ref_size[0], target_size[1]))
-        
-        
+            im1 = im1.crop((0, 0, ref_size[0], target_size[1]))
+
         if target_size[1] > ref_size[1]:
-            im1 = im1.crop((0,0, target_size[0], ref_size[1]))
-        
-        
-        im2 = Image.new('RGB', target_size, (0,0,0))
+            im1 = im1.crop((0, 0, target_size[0], ref_size[1]))
+
+        im2 = Image.new('RGB', target_size, (0, 0, 0))
         im2.paste(ref_image, (0, 0, ref_size[0], ref_size[1]))
 
         diff = ImageChops.difference(im2, im1)
@@ -130,13 +123,12 @@ class Eukalypse:
         #everything black in the diff which is black in the ignoremask
         if ignoremask:
             imignore_raw = Image.open(ignoremask)
-            
-        
+
             ignore_size = imignore_raw.size
             diff_size = diff.size
-            imignore = Image.new('RGB', diff_size, (0,0,0))
+            imignore = Image.new('RGB', diff_size, (0, 0, 0))
             imignore.paste(imignore_raw, (0, 0, ignore_size[0], ignore_size[1]))
-        
+
             diff = ImageChops.multiply(imignore, diff)
         colors = diff.getcolors(diff.size[0] * diff.size[1])
 

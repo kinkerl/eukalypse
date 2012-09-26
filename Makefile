@@ -1,13 +1,14 @@
 all: test
 
 test_unit:
-	nosetests --with-coverage --cover-package=eukalypse --cover-html --cover-tests tests.eukalypse_test
+	cd tests && py.test eukalypse_test.py
+#nosetests --with-coverage --cover-package=eukalypse --cover-html --cover-tests tests.eukalypse_test
 
 test_feature:
 	cd tests && lettuce
 
 test_pep8:
-	pep8 eukalypse/eukalypse.py
+	pep8  --ignore=E501 eukalypse/eukalypse.py tests/*.py
 
 
 test: test_unit, test_feature
