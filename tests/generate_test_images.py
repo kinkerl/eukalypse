@@ -1,16 +1,6 @@
 """
-#4 basic images
-reference_test_screenshot.png
-reference_test_screenshot_index2.png
-reference_test_screenshot_input.png
-reference_test_screenshot_tainted.png
-
-
-#mods
-reference_test_screenshot_tolarge.png
-reference_test_screenshot_tolarge2.png
-reference_test_screenshot_tolarge3.png
-reference_test_screenshot_tosmall.png
+This is a helper script to generate new reference images on a new system. 
+These reference images are only used for internal unit testing.
 """
 import sys
 import os
@@ -19,6 +9,9 @@ sys.path.append(os.path.join(os.path.dirname(inspect.getfile(inspect.currentfram
 from eukalypse import Eukalypse
 import Image
 import ImageDraw
+import logging as logger
+logger.basicConfig(level=logger.INFO)
+
 
 tmp_folder = 'tests/assets'
 e = Eukalypse()
@@ -26,8 +19,12 @@ e.resolution = (1280, 768)
 e.browser = 'chrome'
 e.output = tmp_folder
 e.connect()
+logger.info("getting first screenshot")
 screenshot = e.screenshot('reference_test_screenshot', 'http://localhost:8400/index.html')
+logger.info("writing reference_test_screenshot.png")
+logger.info("getting second screenshot")
 screenshot = e.screenshot('reference_test_screenshot_index2', 'http://localhost:8400/index2.html')
+logger.info("writing reference_test_screenshot_index2.png")
 
 statement = """
 driver = self.driver
@@ -40,25 +37,31 @@ e.execute(statement)
 e.screenshot('reference_test_screenshot_input')
 e.disconnect()
 
-im = Image.open(os.path.join(tmp_folder, "reference_test_screenshot.png"))
+CLEANBASE_FILENAME = os.path.join(tmp_folder, "reference_test_screenshot.png")
+
+im = Image.open(CLEANBASE_FILENAME)
 draw = ImageDraw.Draw(im)
 draw.rectangle((10, 10, 100, 30), fill="red")
 del draw
 
 # write to stdout
-im.save(os.path.join(tmp_folder, "reference_test_screenshot_tainted.png"), "PNG")
+OUTPUTFILENAME = "reference_test_screenshot_tainted.png"
+logger.info("writing {0}".format(OUTPUTFILENAME))
+im.save(os.path.join(tmp_folder, OUTPUTFILENAME), "PNG")
 
 
 # 3 large
-im = Image.open(os.path.join(tmp_folder, "reference_test_screenshot.png"))
+im = Image.open(CLEANBASE_FILENAME)
 im_size = im.size
 largeimage = Image.new('RGB', (1600, 900), (255, 255, 255))
 largeimage.paste(im, (0, 0, im_size[0], im_size[1]))
 
-largeimage.save(os.path.join(tmp_folder, "reference_test_screenshot_tolarge.png"), "PNG")
+OUTPUTFILENAME = "reference_test_screenshot_tolarge.png"
+logger.info("writing {0}".format(OUTPUTFILENAME))
+largeimage.save(os.path.join(tmp_folder, OUTPUTFILENAME), "PNG")
 
 #
-im = Image.open(os.path.join(tmp_folder, "reference_test_screenshot.png"))
+im = Image.open(CLEANBASE_FILENAME)
 im_size = im.size
 largeimage = Image.new('RGB', (1600, 900), (255, 255, 255))
 largeimage.paste(im, (0, 0, im_size[0], im_size[1]))
@@ -67,9 +70,11 @@ draw = ImageDraw.Draw(largeimage)
 draw.rectangle((1550, 850, 1600, 900), fill="red")
 del draw
 
-largeimage.save(os.path.join(tmp_folder, "reference_test_screenshot_tolarge2.png"), "PNG")
+OUTPUTFILENAME = "reference_test_screenshot_tolarge2.png"
+logger.info("writing {0}".format(OUTPUTFILENAME))
+largeimage.save(os.path.join(tmp_folder, OUTPUTFILENAME), "PNG")
 
-im = Image.open(os.path.join(tmp_folder, "reference_test_screenshot.png"))
+im = Image.open(CLEANBASE_FILENAME)
 im_size = im.size
 largeimage = Image.new('RGB', (1600, 900), (255, 255, 255))
 largeimage.paste(im, (0, 0, im_size[0], im_size[1]))
@@ -78,10 +83,14 @@ draw = ImageDraw.Draw(largeimage)
 draw.rectangle((10, 10, 100, 30), fill="red")
 del draw
 
-largeimage.save(os.path.join(tmp_folder, "reference_test_screenshot_tolarge3.png"), "PNG")
+OUTPUTFILENAME = "reference_test_screenshot_tolarge3.png"
+logger.info("writing {0}".format(OUTPUTFILENAME))
+largeimage.save(os.path.join(tmp_folder, OUTPUTFILENAME), "PNG")
 
 
-im = Image.open(os.path.join(tmp_folder, "reference_test_screenshot.png"))
+im = Image.open(CLEANBASE_FILENAME)
 smallimage = im.crop((0, 0, 400, 150))
 
-smallimage.save(os.path.join(tmp_folder, "reference_test_screenshot_tosmall.png"), "PNG")
+OUTPUTFILENAME = "reference_test_screenshot_tosmall.png"
+logger.info("writing {0}".format(OUTPUTFILENAME))
+smallimage.save(os.path.join(tmp_folder, OUTPUTFILENAME), "PNG")

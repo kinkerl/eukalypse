@@ -20,4 +20,4 @@ start_server_web:
 	cd tests/assets/webroot && python ../test_server.py
 
 generate_reference_screenshots:
-	python tests/generate_test_images.py
+	python tests/generate_test_images.py --log=INFO
