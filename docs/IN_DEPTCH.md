@@ -68,5 +68,3 @@ e.driver.find_element_by_id("clickme").click()
 e.screenshot('test')
 e.disconnect()
 ```
-
-For now, please take a look at the testing suit for and indepth usage. 
