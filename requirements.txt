@@ -1,4 +1,0 @@
-selenium
-PIL
-configobj
-tox

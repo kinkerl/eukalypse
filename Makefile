@@ -1,14 +1,5 @@
 all: test
 
-test_unit:
-	cd tests && py.test eukalypse_test.py
-
-test_feature:
-	cd tests && lettuce
-
-test:
-	tox
-
 pep8:
 	pep8  --ignore=E501 eukalypse/eukalypse.py tests/*.py tests/features/*.py example/eukalypse_now/*.py
 

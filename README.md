@@ -121,7 +121,7 @@ $ make generate_reference_screenshots
 The images are now stored in tests/assets. If they look fine, run all the tests!
 
 ```bash
-$ make test
+$ python setup test
 ```
 
-This uses tox to create a virutal environment and installs eukalypse into it. It then runs make test_feature and make test_unit.
+This uses tox to create a virutal environment and installs eukalypse into it.
