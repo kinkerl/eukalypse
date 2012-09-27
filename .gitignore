@@ -35,3 +35,5 @@ cover
 tests/assets/reference_test*png
 .directory
 report
+
+.sonar
