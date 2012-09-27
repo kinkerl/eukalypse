@@ -10,5 +10,6 @@ Feature: Basic tests
         Given I am connected to Selenium
         Then I disconnect from Selenium
         And I create a screenshot with the name "test_screenshot2" of the url "http://localhost:8400/"
-        Then the screenshot response is not "False"
+        Then I am connected to Selenium
+        And the screenshot response is not "False"
         And the file "test_screenshot2.png" exists
