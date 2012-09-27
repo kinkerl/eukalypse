@@ -105,14 +105,14 @@ For now, please take a look at the testing suit for and indepth usage.
 Testing
 ==========
 
-You need the webbrower chrome, a running selenium server and a testing webserver on localhost to run the tests. These are included! 
+You need the webbrower chrome, a running selenium server and a testing webserver on localhost to run the tests. The last two are included! 
 
 ```bash
 $ make start_server_selenium
 $ make start_server_web
 ```
 
-After the servers are started, you can create reference images for future checks, tailored to your system. These images will depend "heavily" on your operating system.
+After the servers are started, you have create reference images for future checks, tailored to your system. These images will depend "heavily" on your operating system.
 
 ```bash
 $ make generate_reference_screenshots
@@ -124,4 +124,4 @@ The images are now stored in tests/assets. If they look fine, run all the tests!
 $ python setup test
 ```
 
-This uses tox to create a virutal environment and installs eukalypse into it.
+This uses tox to create a virutal environment and installs eukalypse into it and then runs the unit tests using py.test and feature tests using lettuce.
