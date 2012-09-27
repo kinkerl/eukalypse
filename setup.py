@@ -1,6 +1,4 @@
 from setuptools import setup
-import finddata
-
 
 setup(
     name="eukalypse",
@@ -8,12 +6,10 @@ setup(
     author_email="s@digitalkultur.net",
     version='0.1',
     packages=['eukalypse'],
-    package_data=finddata.find_package_data(),
     url='https://github.com/kinkerl/eukalypse',
-    include_package_data=True,
     license='MIT',
     description='Compare websites to images of websites and spots the difference.',
-    long_description=open('README.md').read(),
+    long_description='Compare websites to images of websites and spots the difference.',
     zip_safe=False,
     install_requires=['selenium'],
     dependency_links=[],

@@ -1,9 +1,7 @@
 from lettuce import *
 import os
 import shutil
-import sys
 import inspect
-sys.path.append(os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), '../../eukalypse'))
 from eukalypse import Eukalypse
 from configobj import ConfigObj
 

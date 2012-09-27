@@ -2,16 +2,15 @@ all: test
 
 test_unit:
 	cd tests && py.test eukalypse_test.py
-#nosetests --with-coverage --cover-package=eukalypse --cover-html --cover-tests tests.eukalypse_test
 
 test_feature:
 	cd tests && lettuce
 
-test_pep8:
+test:
+	tox
+
+pep8:
 	pep8  --ignore=E501 eukalypse/eukalypse.py tests/*.py tests/features/*.py example/eukalypse_now/*.py
-
-
-test: test_unit, test_feature
 
 start_server_selenium:
 	cd tests/assets/ && java -Dwebdriver.chrome.driver=chromedriver -jar selenium*.jar

@@ -21,11 +21,7 @@ You can supply features, bugs and patches at github: https//github.com/kinkerl/e
 Installation
 ============
 
-You only need the eukalypse/eukalypse.py file in a place where your script will find it. Everything else is just candy. If you are lazy or care about the candy, install eukalypse using pip:
-
-```bash
-$ pip install -e git+https://github.com/kinkerl/eukalypse.git#egg=eukalypse
-```
+You only need the eukalypse/eukalypse.py file in a place where your script will find it. Everything else is just candy.
 
 You may have to install the requirements in the requirements.txt as well. I have to streamline and clean up the installation process.
 
@@ -125,8 +121,7 @@ $ make generate_reference_screenshots
 The images are now stored in tests/assets. If they look fine, run all the tests!
 
 ```bash
-$ make test_feature
-$ make test_unit
-$ make test_pep8
+$ make test
 ```
 
+This uses tox to create a virutal environment and installs eukalypse into it. It then runs make test_feature and make test_unit.

@@ -1,0 +1,9 @@
+#these requirements are used inside the testing environment
+
+selenium
+pytest
+pytest-cov
+pep8
+lettuce
+PIL
+configobj

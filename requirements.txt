@@ -1,7 +1,4 @@
 selenium
-pytest
-pytest-cov
-pep8
-lettuce
 PIL
 configobj
+tox
