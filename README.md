@@ -23,8 +23,6 @@ Installation
 
 You only need the eukalypse/eukalypse.py file in a place where your script will find it. Everything else is just candy.
 
-You may have to install the requirements in the requirements.txt as well. I have to streamline and clean up the installation process.
-
 Usage
 =====
 
