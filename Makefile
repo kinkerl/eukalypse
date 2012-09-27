@@ -1,5 +1,3 @@
-all: test
-
 pep8:
 	pep8  --ignore=E501 eukalypse/eukalypse.py tests/*.py tests/features/*.py example/eukalypse_now/*.py
 
