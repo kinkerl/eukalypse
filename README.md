@@ -116,7 +116,13 @@ $ make start_server_selenium
 $ make start_server_web
 ```
 
-After the servers are started, you can run the tests.
+After the servers are started, you can create reference images for future checks, tailored to your system. These images will depend "heavily" on your operating system.
+
+```bash
+$ make generate_reference_screenshots
+```
+
+The images are now stored in tests/assets. If they look fine, run all the tests!
 
 ```bash
 $ make test_feature
@@ -124,8 +130,3 @@ $ make test_unit
 $ make test_pep8
 ```
 
-The reference images are created on Ubuntu 12.04 in Chrome. If you are NOT running Ubuntu 12.04, most of these tests might fail due to different font renderings on other operating systems. You can create new reference images of your own which will overwrite the existing ones in tests/assets.
-
-```bash
-$ make generate_reference_screenshots
-```
