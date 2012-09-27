@@ -8,7 +8,7 @@ test_feature:
 	cd tests && lettuce
 
 test_pep8:
-	pep8  --ignore=E501 eukalypse/eukalypse.py tests/*.py
+	pep8  --ignore=E501 eukalypse/eukalypse.py tests/*.py tests/features/*.py example/eukalypse_now/*.py
 
 
 test: test_unit, test_feature

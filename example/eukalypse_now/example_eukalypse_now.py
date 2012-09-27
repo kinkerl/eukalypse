@@ -3,7 +3,7 @@ from configobj import ConfigObj
 import sys
 import os
 import inspect
-sys.path.append(os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())),'../../eukalypse'))
+sys.path.append(os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), '../../eukalypse'))
 from eukalypse_now import EukalypseNow
 
 

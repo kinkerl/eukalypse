@@ -1,5 +1,5 @@
 """
-This is a helper script to generate new reference images on a new system. 
+This is a helper script to generate new reference images on a new system.
 These reference images are only used for internal unit testing.
 """
 import sys
