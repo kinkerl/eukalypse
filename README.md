@@ -49,11 +49,11 @@ compare a website with a reference image
 ```python
 e = Eukalypse()
 eukalypse_result_object = e.compare('test', 'my_reference_image.png', 'http://localhost:8400/')
+e.disconnect()
 if eukalypse_result_object.clean:
     print "the same!"
 else:
     print "different!"
-e.disconnect()
 ```
 For now, please take a look at the files in the docs folder, the examples or the testing suit for and indepth usage. 
 
