@@ -2,18 +2,20 @@ from lettuce import *
 import os
 import shutil
 import inspect
-from eukalypse import Eukalypse
-from configobj import ConfigObj
+from eukalypse.eukalypse import Eukalypse
+import ConfigParser
+
+
 
 
 @before.all
 def setUpEnvironment():
+    config = ConfigParser.ConfigParser()
+    config.read(os.path.join(os.path.dirname(__file__), "..", "config.cfg"))
 
-    config = ConfigObj(os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), '../..', "tests/test.config"))
-
-    world.CLEAN_TMP_DIR = config['clean_tmp_dir']  # cleanup after each test
-    world.TMP_DIR = os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), '..', config['tmp_dir'])
-    world.TEST_URL = config['test_url']
+    world.CLEAN_TMP_DIR = config.get('main', 'clean_tmp_dir')  # cleanup after each test
+    world.TMP_DIR = os.path.join(os.path.dirname(__file__), '..', config.get('main', 'tmp_dir'))
+    world.TEST_URL = config.get('main', 'test_url')
 
     if os.path.isdir(world.TMP_DIR):  # pragma: no cover
         shutil.rmtree(world.TMP_DIR)

@@ -6,4 +6,4 @@ pytest-cov
 pep8
 lettuce
 pillow
-configobj
+configparser

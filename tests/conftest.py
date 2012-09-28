@@ -1,11 +1,13 @@
-from configobj import ConfigObj
 from eukalypse.eukalypse import Eukalypse
+import ConfigParser
+import os
 
-config = ConfigObj("test.config")
+config = ConfigParser.ConfigParser()
+config.read(os.path.join(os.path.dirname(__file__), "config.cfg"))
 
 
-TEST_URL = config['test_url']
-TMP_DIR = config['tmp_dir']
+TEST_URL = config.get('main', 'test_url')
+TMP_DIR = config.get('main', 'tmp_dir')
 
 
 def pytest_funcarg__eukalypse(request):

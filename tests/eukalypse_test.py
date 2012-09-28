@@ -1,13 +1,16 @@
 #import unittest
 import os
 import shutil
-from configobj import ConfigObj
+import ConfigParser
 
-config = ConfigObj("test.config")
+config = ConfigParser.ConfigParser()
+config.read(os.path.join(os.path.dirname(__file__), "config.cfg"))
 
-CLEAN_TMP_DIR = config['clean_tmp_dir']
-TEST_URL = config['test_url']
-TMP_DIR = config['tmp_dir']
+
+
+TEST_URL = config.get('main', 'test_url')
+TMP_DIR = config.get('main', 'tmp_dir')
+CLEAN_TMP_DIR = config.get('main', 'clean_tmp_dir')
 
 
 def setup_module(module):

@@ -5,4 +5,4 @@ pytest
 pytest-cov
 pep8
 pillow
-configobj
+configparser
