@@ -134,8 +134,7 @@ def test_execute(eukalypse, test_url):
 driver = self.driver
 driver.get(self.base_url + "/")
 driver.set_window_size(1280, 768)
-driver.find_element_by_id("clickme").click()
-    """
+driver.find_element_by_id("clickme").click()"""
     eukalypse.base_url = test_url
     eukalypse.execute(statement)
     response = eukalypse.compare('execute', 'assets/reference_test_screenshot_index2.png')
@@ -152,8 +151,7 @@ driver = self.driver
 driver.get(self.base_url + "/")
 driver.set_window_size(1280, 768)
 driver.find_element_by_css_selector('input[type="text"]').clear()
-driver.find_element_by_css_selector('input[type="text"]').send_keys("asd")
-    """
+driver.find_element_by_css_selector('input[type="text"]').send_keys("asd")"""
 
     eukalypse.base_url = test_url
     eukalypse.execute(statement)
@@ -162,8 +160,7 @@ driver.find_element_by_css_selector('input[type="text"]').send_keys("asd")
 
     statement = """
 driver = self.driver
-driver.find_element_by_css_selector('input[type="submit"]').click()
-    """
+driver.find_element_by_css_selector('input[type="submit"]').click()"""
 
     eukalypse.execute(statement)
     response = eukalypse.compare('execute_row2', 'assets/reference_test_screenshot_index2.png')
