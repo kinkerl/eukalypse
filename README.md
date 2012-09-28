@@ -23,6 +23,17 @@ Installation
 
 You only need the eukalypse/eukalypse.py file in a place where your script will find it. Everything else is just candy.
 
+Python support
+--------------
+
+Right now, eukalypse does not support python 3.2 or jython. Its close! Mostly due to problems in third party libraries. It does however support the following:
+
+* python 2.6
+* python 2.7
+* pypy
+
+If anyone knows how to make it run on python 3.2 or jython: Tell me!
+
 Usage
 =====
 
