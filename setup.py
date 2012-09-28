@@ -23,7 +23,7 @@ setup(
     license='MIT',
     description='Compare websites to images of websites and spots the difference.',
     long_description='Compare websites to images of websites and spots the difference.',
-    install_requires=['selenium', 'PIL', 'configobj'],
+    install_requires=['selenium', 'pillow'],
     tests_require=['tox'],
     cmdclass = {'test': Tox},
     classifiers=[

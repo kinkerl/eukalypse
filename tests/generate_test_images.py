@@ -7,7 +7,7 @@ import os
 import inspect
 sys.path.append(os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), '../eukalypse'))
 from eukalypse import Eukalypse
-import Image
+from PIL import Image
 import ImageDraw
 import logging as logger
 logger.basicConfig(level=logger.INFO)

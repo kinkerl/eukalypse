@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 from selenium import webdriver
 import time
-import Image
-import ImageChops
+from PIL import Image
+from PIL import ImageChops
 import os
 
 
@@ -115,8 +115,10 @@ class Eukalypse:
             im1 = im1.crop((0, 0, target_size[0], ref_size[1]))
 
         im2 = Image.new('RGB', target_size, (0, 0, 0))
-        im2.paste(ref_image, (0, 0, ref_size[0], ref_size[1]))
-
+        try:
+            im2.paste(ref_image, (0, 0, ref_size[0], ref_size[1]))
+        except: #if the paste crashes, try without it. still better than nothing
+            im2 = ref_image
         diff = ImageChops.difference(im2, im1)
 
         #if an ignoremask exist, multiply it with the difference. this makes
@@ -127,8 +129,10 @@ class Eukalypse:
             ignore_size = imignore_raw.size
             diff_size = diff.size
             imignore = Image.new('RGB', diff_size, (0, 0, 0))
-            imignore.paste(imignore_raw, (0, 0, ignore_size[0], ignore_size[1]))
-
+            try:
+                imignore.paste(imignore_raw, (0, 0, ignore_size[0], ignore_size[1]))
+            except: #if the paste crashes, try without it. still better than nothing
+                imignore = imignore_raw
             diff = ImageChops.multiply(imignore, diff)
         colors = diff.getcolors(diff.size[0] * diff.size[1])
 
