@@ -2,6 +2,8 @@ from eukalypse import Eukalypse
 
 import os
 import datetime
+import sys
+from configobj import ConfigObj
 
 class EukalypseNow:
 	def run(self, config):
@@ -25,3 +27,16 @@ class EukalypseNow:
 			print "mailsending not yet implemented"
 		#	config['general']['operator_name']
 		#	config['general']['operator_mail']
+
+if __name__ == '__main__':
+	configpath = sys.argv[1]
+	print configpath
+	#load a settings file
+	try:
+		config = ConfigObj(configpath)
+	except Exception as e:
+		print "error loading config" 
+		print e
+	else:
+		enow = EukalypseNow()
+		enow.run(config)
