@@ -21,7 +21,10 @@ You can supply features, bugs and patches at github: https//github.com/kinkerl/e
 Installation
 ============
 
-You only need the eukalypse/eukalypse.py file in a place where your script will find it. Everything else is just candy.
+```python
+python setup.py install
+```
+
 
 Python support
 --------------
