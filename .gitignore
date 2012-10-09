@@ -37,3 +37,5 @@ tests/assets/reference_test*png
 report
 
 .sonar
+
+docs/_build

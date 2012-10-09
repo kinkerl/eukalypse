@@ -9,11 +9,11 @@ logger.basicConfig(level=logger.INFO)
 
 
 class EukalypseNow:
-	def run(self, config):
+	def run(self, configfile):
 
 
 		config = ConfigParser.ConfigParser()
-		config.read("config.cfg")
+		config.read(configfile)
 
 		reportfolder = os.path.join(config.get('general', 'report_output_path'), str(datetime.datetime.now()))
 		os.makedirs(reportfolder)
@@ -23,10 +23,11 @@ class EukalypseNow:
 
 
 #fix me here
-#		for test_key in config['tests']:
-#			test = config['tests'][test_key]
-#			eukalypse_result_object = e.compare(test_key, test['reference_image'], test['url'])
-#			logger.debug(eukalypse_result_object.clean)
+		for test_key in config.get('tests'):
+			print test_key
+			#test = config['tests'][test_key]
+			#eukalypse_result_object = e.compare(test_key, test['reference_image'], test['url'])
+			#logger.debug(eukalypse_result_object.clean)
 
 		e.disconnect()
 
