@@ -94,7 +94,7 @@ class Eukalypse:
         destination = os.path.join(self.output, "%s.png" % identifier)
 
         if self._use_phantomjs():
-            params = [self.phantom, self.phantomscript, target_url, destination]
+            params = [self.phantom, self.phantomscript, target_url, destination, self.resolution[0], self.resolution[1]]
             exitcode = subprocess.call(params)
             if exitcode == 0:
                 return destination

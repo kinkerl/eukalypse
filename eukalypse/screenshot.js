@@ -3,8 +3,8 @@ var page = new WebPage(),
 
 address = phantom.args[0];
 outfile = phantom.args[1];
-width = 1024;
-clip_height = height = 800;
+width = phantom.args[2];
+clip_height = height = phantom.args[3];
 
 page.viewportSize = { width: width, height: height };
 page.clipRect = { width: width, height: clip_height };
