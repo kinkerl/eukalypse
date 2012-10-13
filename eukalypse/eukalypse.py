@@ -4,8 +4,13 @@ import time
 from PIL import Image
 from PIL import ImageChops
 import os
+import subprocess
+import logging as logger
+logger.basicConfig(level=logger.INFO)
 
 
+
+        
 class EukalypseCompareResponse:
     """
     A Response is the result of a comparison. It holds all the information needed to display what happend and what the outcome is.
@@ -26,6 +31,7 @@ class EukalypseCompareResponse:
 class Eukalypse:
     def __init__(self):
         self.wait = 0
+        #supports the selenium browsers if the webdrivers are installed + phantomjsbin
         self.browser = 'firefox'
         self.resolution = (1280, 768)
         self.platform = 'ANY'
@@ -33,27 +39,38 @@ class Eukalypse:
         self.output = '.'
         self.improve_factor = 100
         self.driver = None
+        self.phantom = "phantomjs"
+        self.phantomscript = os.path.join(__file__, "screenshot.js")
 
+    def _use_phantomjs(self):
+        return self.browser == 'phantomjsbin'
+        
     def connect(self):
         """
         Creates a connection to the Selenium Server which exists until it is disconnected.
         You can execute multiple commands, screenshots or compare within one connection.
         Chained commands start where the leading command stops.
         """
-        if self.driver:
-            self.driver.close()
-        self.driver = webdriver.Remote("%s/wd/hub" % self.host, desired_capabilities={"browserName": self.browser, "platform": self.platform})
+        if self._use_phantomjs():
+            logger.info("connect not supported when using 'phantomjsbin' browser")
+        else:
+            if self.driver:
+                self.driver.close()
+            self.driver = webdriver.Remote("%s/wd/hub" % self.host, desired_capabilities={"browserName": self.browser, "platform": self.platform})
 
     def disconnect(self):
         """
         If a connection exists, try to disconnect from it.
         """
-        try:
-            if self.driver:
-                self.driver.close()
-                self.driver = None
-        except:  # pragma: no cover
-            pass
+        if self._use_phantomjs():
+            logger.info("disconnect not supported when using 'phantomjsbin' browser")
+        else:
+            try:
+                if self.driver:
+                    self.driver.close()
+                    self.driver = None
+            except:  # pragma: no cover
+                pass
 
     def execute(self, statement):
         """
@@ -61,7 +78,10 @@ class Eukalypse:
         driver.get(self.base_url + "/kinkerl/eukalypse")
         driver.find_element_by_link_text("Downloads 0").click()
         """
-        exec(statement, {"__builtins__": None}, {"self": self})
+        if self._use_phantomjs():
+            logger.info("execute not supported when using 'phantomjsbin' browser")
+        else:
+            exec(statement, {"__builtins__": None}, {"self": self})
 
     def screenshot(self, identifier, target_url=None):
         """
@@ -70,20 +90,29 @@ class Eukalypse:
         If no target_url is given, try  to make a screenshot of the current connection state.
         This is usefull if you start with selenium commands run with execute and want to test or shot the resulting state of the commands.
         """
-        destination = False
-        if not self.driver:
-            self.connect()
-        try:
-            self.driver.set_window_size(self.resolution[0], self.resolution[1])
-            if target_url:
-                self.driver.get(target_url)
-            time.sleep(self.wait)
-            destination = os.path.join(self.output, "%s.png" % identifier)
-            self.driver.get_screenshot_as_file(destination)
-        except Exception:  # pragma: no cover
-            raise
 
-        return destination
+        destination = os.path.join(self.output, "%s.png" % identifier)
+
+        if self._use_phantomjs():
+            params = [self.phantom, self.phantomscript, target_url, destination]
+            exitcode = subprocess.call(params)
+            if exitcode == 0:
+                return destination
+            
+        else:
+            if not self.driver:
+                self.connect()
+            try:
+                self.driver.set_window_size(self.resolution[0], self.resolution[1])
+                if target_url:
+                    self.driver.get(target_url)
+                time.sleep(self.wait)
+                
+                self.driver.get_screenshot_as_file(destination)
+            except Exception:  # pragma: no cover
+                raise
+            return destination
+        return None
 
     def compare(self, identifier, reference_image, target_url=None, ignoremask=None):
         """
@@ -101,7 +130,10 @@ class Eukalypse:
 
         target_image = self.screenshot(identifier, target_url)
         response.target_img = target_image
-
+        if not target_image:
+            response.clean = False
+            return response
+        
         im1 = Image.open(target_image)
         target_size = im1.size
 
