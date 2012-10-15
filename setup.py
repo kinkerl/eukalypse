@@ -1,6 +1,12 @@
+"""
+Eukalypse is a library to create screenshots and compare them
+
+"""
+
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
 import sys
+from setuptools import setup, find_packages
 
 class Tox(TestCommand):
     def finalize_options(self):
@@ -17,12 +23,14 @@ setup(
     name="eukalypse",
     author="Dennis Schwertel",
     author_email="s@digitalkultur.net",
-    version='0.1',
-    packages=['eukalypse'],
+    version='0.1.1',
     url='https://github.com/kinkerl/eukalypse',
     license='MIT',
+    zip_safe=False,
+    packages=['eukalypse'],
+    package_data={'eukalypse': ['screenshot.js']},
     description='Compare websites to images of websites and spots the difference.',
-    long_description='Compare websites to images of websites and spots the difference.',
+    long_description= __doc__,
     install_requires=['selenium', 'pillow'],
     tests_require=['tox'],
     cmdclass = {'test': Tox},
@@ -30,10 +38,7 @@ setup(
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Topic :: Internet :: WWW/HTTP',
-        'Topic :: Software Development :: Libraries :: Python Modules',
         ]
 )

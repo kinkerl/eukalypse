@@ -8,7 +8,7 @@ import inspect
 sys.path.append(os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), '../eukalypse'))
 from eukalypse import Eukalypse
 from PIL import Image
-import ImageDraw
+from PIL import ImageDraw
 import logging as logger
 logger.basicConfig(level=logger.INFO)
 
@@ -16,7 +16,7 @@ logger.basicConfig(level=logger.INFO)
 tmp_folder = 'tests/assets'
 e = Eukalypse()
 e.resolution = (1280, 768)
-e.browser = 'chrome'
+e.browser = 'phantomjsbin'
 e.output = tmp_folder
 e.connect()
 logger.info("getting first screenshot")
@@ -34,7 +34,7 @@ driver.find_element_by_css_selector('input[type="text"]').clear()
 driver.find_element_by_css_selector('input[type="text"]').send_keys("asd")
 """
 e.execute(statement)
-e.screenshot('reference_test_screenshot_input')
+e.execute_screenshot('reference_test_screenshot_input')
 e.disconnect()
 
 CLEANBASE_FILENAME = os.path.join(tmp_folder, "reference_test_screenshot.png")

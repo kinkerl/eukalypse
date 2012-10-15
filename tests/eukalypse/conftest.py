@@ -1,4 +1,4 @@
-from eukalypse.eukalypse import Eukalypse
+from eukalypse import Eukalypse
 import ConfigParser
 import os
 
@@ -14,7 +14,7 @@ def pytest_funcarg__eukalypse(request):
 
     eukalypse = Eukalypse()
     eukalypse.resolution = (1280, 768)
-    eukalypse.browser = 'chrome'
+    eukalypse.browser = 'phantomjsbin'
     eukalypse.output = TMP_DIR
     eukalypse.connect()
 

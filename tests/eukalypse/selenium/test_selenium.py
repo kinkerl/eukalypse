@@ -2,9 +2,10 @@
 import os
 import shutil
 import ConfigParser
+import pytest
 
 config = ConfigParser.ConfigParser()
-config.read(os.path.join(os.path.dirname(__file__), "config.cfg"))
+config.read(os.path.join(os.path.dirname(__file__), "..", "config.cfg"))
 
 
 
@@ -28,13 +29,13 @@ def teardown_module(module):
 
 
 def test_reconnect(eukalypse):
-    assert eukalypse.driver is not False
+    assert eukalypse.driver is not None
     eukalypse.connect()
-    assert eukalypse.driver is not False
+    assert eukalypse.driver is not None
 
 
 def test_disconnect(eukalypse):
-    assert eukalypse.driver is not False
+    assert eukalypse.driver is not None
     eukalypse.disconnect()
     assert eukalypse.driver is None
 
@@ -44,7 +45,7 @@ def test_screenshot(eukalypse, test_url):
     Just try to create a screenshot
     """
     screenshot = eukalypse.screenshot('test_screenshot', test_url)
-    assert screenshot is not False
+    assert screenshot is str
     assert os.path.isfile(screenshot)
 
 
@@ -53,11 +54,11 @@ def test_screenshot_connect(eukalypse, test_url):
     Try to create a screenshot and test the auto-connect function
     if eukalypse is not connected to the selenium server.
     """
-    assert eukalypse.driver is not False
+    assert eukalypse.driver is not None
     eukalypse.disconnect()
     assert eukalypse.driver is None
     screenshot = eukalypse.screenshot('test_screenshot_connect', test_url)
-    assert screenshot is not False
+    assert screenshot is not None
     assert os.path.isfile(screenshot)
 
 
@@ -129,10 +130,13 @@ def test_compareTaintedMask5(eukalypse, test_url):
     _response_tainted(response)
 
 
-def test_execute(eukalypse, test_url):
+def test_execute_selenium(eukalypse, test_url):
     """
     Test execution of selenium statements
     """
+    if eukalypse.browser == "phantomjsbin":
+        pytest.skip()
+    
     statement = """
 driver = self.driver
 driver.get(self.base_url + "/")
@@ -144,11 +148,15 @@ driver.find_element_by_id("clickme").click()"""
     _response_clean(response)
 
 
-def test_execute_row(eukalypse, test_url):
+def test_execute_row_selenium(eukalypse, test_url):
     """
     Test multiple execution of selenium statements and compare 2
     screenshots to verify the progress of the execution.
     """
+    if eukalypse.browser == "phantomjsbin":
+        pytest.skip()
+        
+        
     statement = """
 driver = self.driver
 driver.get(self.base_url + "/")

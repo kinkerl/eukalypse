@@ -40,7 +40,7 @@ class Eukalypse:
         self.improve_factor = 100
         self.driver = None
         self.phantom = "phantomjs"
-        self.phantomscript = os.path.join(__file__, "screenshot.js")
+        self.phantomscript = os.path.join(os.path.dirname(__file__), "screenshot.js")
 
     def _use_phantomjs(self):
         return self.browser == 'phantomjsbin'
@@ -52,7 +52,7 @@ class Eukalypse:
         Chained commands start where the leading command stops.
         """
         if self._use_phantomjs():
-            logger.info("connect not supported when using 'phantomjsbin' browser")
+            logger.warn("connect not supported when using 'phantomjsbin' browser")
         else:
             if self.driver:
                 self.driver.close()
@@ -63,7 +63,7 @@ class Eukalypse:
         If a connection exists, try to disconnect from it.
         """
         if self._use_phantomjs():
-            logger.info("disconnect not supported when using 'phantomjsbin' browser")
+            logger.warn("disconnect not supported when using 'phantomjsbin' browser")
         else:
             try:
                 if self.driver:
@@ -79,11 +79,23 @@ class Eukalypse:
         driver.find_element_by_link_text("Downloads 0").click()
         """
         if self._use_phantomjs():
-            logger.info("execute not supported when using 'phantomjsbin' browser")
+            logger.warn("execute not supported when using 'phantomjsbin' browser")
         else:
             exec(statement, {"__builtins__": None}, {"self": self})
 
-    def screenshot(self, identifier, target_url=None):
+
+    def execute_screenshot(self, identifier):
+        """
+        do a screenshot. this function assumes you already set a url
+        """
+        if self._use_phantomjs():
+            logger.warn("execute_screenshot not supported when using 'phantomjsbin' browser")
+            return None
+        else:
+            return self.screenshot(identifier, None)
+
+
+    def screenshot(self, identifier, target_url):
         """
         Generate a screenshot of the target_url and save it in the output directory(self.output).
         The filename will be the identifier + ".png".
@@ -94,7 +106,7 @@ class Eukalypse:
         destination = os.path.join(self.output, "%s.png" % identifier)
 
         if self._use_phantomjs():
-            params = [self.phantom, self.phantomscript, target_url, destination, self.resolution[0], self.resolution[1]]
+            params = [self.phantom, self.phantomscript, target_url, destination, str(self.resolution[0]), str(self.resolution[1])]
             exitcode = subprocess.call(params)
             if exitcode == 0:
                 return destination
@@ -135,6 +147,7 @@ class Eukalypse:
             return response
         
         im1 = Image.open(target_image)
+        im1 = im1.convert('RGB')
         target_size = im1.size
 
         ref_image = Image.open(reference_image)
@@ -146,10 +159,13 @@ class Eukalypse:
         if target_size[1] > ref_size[1]:
             im1 = im1.crop((0, 0, target_size[0], ref_size[1]))
 
-        im2 = Image.new('RGB', target_size, (0, 0, 0))
+        
+        im2 = Image.new(ref_image.mode, target_size, (0, 0, 0))
+        im2 = im2.convert('RGB')
         try:
             im2.paste(ref_image, (0, 0, ref_size[0], ref_size[1]))
         except: #if the paste crashes, try without it. still better than nothing
+            logger.warn("something did not scale well")
             im2 = ref_image
         diff = ImageChops.difference(im2, im1)
 
@@ -157,10 +173,10 @@ class Eukalypse:
         #everything black in the diff which is black in the ignoremask
         if ignoremask:
             imignore_raw = Image.open(ignoremask)
-
+            imignore_raw = imignore_raw.convert('RGB')
             ignore_size = imignore_raw.size
             diff_size = diff.size
-            imignore = Image.new('RGB', diff_size, (0, 0, 0))
+            imignore = Image.new(imignore_raw.mode, diff_size, (0, 0, 0))
             try:
                 imignore.paste(imignore_raw, (0, 0, ignore_size[0], ignore_size[1]))
             except: #if the paste crashes, try without it. still better than nothing
