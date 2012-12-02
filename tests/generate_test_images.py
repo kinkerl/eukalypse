@@ -1,6 +1,8 @@
 """
 This is a helper script to generate new reference images on a new system.
 These reference images are only used for internal unit testing.
+
+We need a web server, serving tests/assets/webroot/* as document root on port 8400
 """
 import sys
 import os

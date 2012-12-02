@@ -6,3 +6,4 @@ pytest-cov
 pep8
 pillow
 configparser
+mock

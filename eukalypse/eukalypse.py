@@ -9,8 +9,6 @@ import logging as logger
 logger.basicConfig(level=logger.INFO)
 
 
-
-        
 class EukalypseCompareResponse:
     """
     A Response is the result of a comparison. It holds all the information needed to display what happend and what the outcome is.
@@ -118,7 +116,9 @@ class Eukalypse:
                     self.driver.get(target_url)
                 time.sleep(self.wait)
 
-                self.driver.get_screenshot_as_file(destination)
+                returnfilename = self.driver.get_screenshot_as_file(destination)
+                if returnfilename:  # screenshot should return the name of the file. this is used when overwriting the driver and i think its just a better style
+                    destination = returnfilename
             except Exception:  # pragma: no cover
                 raise
             return destination
