@@ -44,7 +44,7 @@ class Eukalypse:
 
     def _use_phantomjs(self):
         return self.browser == 'phantomjsbin'
-        
+
     def connect(self):
         """
         Creates a connection to the Selenium Server which exists until it is disconnected.
@@ -52,10 +52,10 @@ class Eukalypse:
         Chained commands start where the leading command stops.
         """
         if self._use_phantomjs():
-            logger.warn("connect not supported when using 'phantomjsbin' browser")
+            logger.info("connect not supported when using 'phantomjsbin' browser")
         else:
-            if self.driver:
-                self.driver.close()
+            if self.driver:  # disconnect old connections
+                self.disconnect()
             self.driver = webdriver.Remote("%s/wd/hub" % self.host, desired_capabilities={"browserName": self.browser, "platform": self.platform})
 
     def disconnect(self):
@@ -63,14 +63,14 @@ class Eukalypse:
         If a connection exists, try to disconnect from it.
         """
         if self._use_phantomjs():
-            logger.warn("disconnect not supported when using 'phantomjsbin' browser")
+            logger.info("disconnect not supported when using 'phantomjsbin' browser")
         else:
-            try:
-                if self.driver:
+            if self.driver:
+                try:
                     self.driver.close()
-                    self.driver = None
-            except:  # pragma: no cover
-                pass
+                except:  # pragma: no cover
+                    logger.warn("driver is set but can not close() it")
+                self.driver = None
 
     def execute(self, statement):
         """
@@ -83,7 +83,6 @@ class Eukalypse:
         else:
             exec(statement, {"__builtins__": None}, {"self": self})
 
-
     def execute_screenshot(self, identifier):
         """
         do a screenshot. this function assumes you already set a url
@@ -93,7 +92,6 @@ class Eukalypse:
             return None
         else:
             return self.screenshot(identifier, None)
-
 
     def screenshot(self, identifier, target_url):
         """
@@ -110,7 +108,7 @@ class Eukalypse:
             exitcode = subprocess.call(params)
             if exitcode == 0:
                 return destination
-            
+
         else:
             if not self.driver:
                 self.connect()
@@ -119,7 +117,7 @@ class Eukalypse:
                 if target_url:
                     self.driver.get(target_url)
                 time.sleep(self.wait)
-                
+
                 self.driver.get_screenshot_as_file(destination)
             except Exception:  # pragma: no cover
                 raise
@@ -145,7 +143,7 @@ class Eukalypse:
         if not target_image:
             response.clean = False
             return response
-        
+
         im1 = Image.open(target_image)
         im1 = im1.convert('RGB')
         target_size = im1.size
@@ -159,12 +157,11 @@ class Eukalypse:
         if target_size[1] > ref_size[1]:
             im1 = im1.crop((0, 0, target_size[0], ref_size[1]))
 
-        
         im2 = Image.new(ref_image.mode, target_size, (0, 0, 0))
         im2 = im2.convert('RGB')
         try:
             im2.paste(ref_image, (0, 0, ref_size[0], ref_size[1]))
-        except: #if the paste crashes, try without it. still better than nothing
+        except:  # if the paste crashes, try without it. still better than nothing
             logger.warn("something did not scale well")
             im2 = ref_image
         diff = ImageChops.difference(im2, im1)
@@ -179,7 +176,7 @@ class Eukalypse:
             imignore = Image.new(imignore_raw.mode, diff_size, (0, 0, 0))
             try:
                 imignore.paste(imignore_raw, (0, 0, ignore_size[0], ignore_size[1]))
-            except: #if the paste crashes, try without it. still better than nothing
+            except:  # if the paste crashes, try without it. still better than nothing
                 imignore = imignore_raw
             diff = ImageChops.multiply(imignore, diff)
         colors = diff.getcolors(diff.size[0] * diff.size[1])
