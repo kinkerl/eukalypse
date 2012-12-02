@@ -43,18 +43,18 @@ class Remote:
             tmp = self.overwrite
             self.overwrite = None
             return tmp
-        return "assets/reference_test_screenshot.png"
+        return "tests/assets/reference_test_screenshot.png"
 
     def find_element_by_id(self, id):
-        if id == 'clickme':  # used in test_execute_selenium
-            self.overwrite = 'assets/reference_test_screenshot_index2.png'
+        if id == 'clickme':  #te used in test_execute_selenium
+            self.overwrite = 'tests/assets/reference_test_screenshot_index2.png'
         return MagicMock()
 
     def find_element_by_css_selector(self, selector):
         if selector == 'input[type="text"]':  # used in test_execute_row_selenium
-            self.overwrite = 'assets/reference_test_screenshot_input.png'
+            self.overwrite = 'tests/assets/reference_test_screenshot_input.png'
         elif selector == 'input[type="submit"]':  # used in test_execute_row_selenium
-            self.overwrite = 'assets/reference_test_screenshot_index2.png'
+            self.overwrite = 'tests/assets/reference_test_screenshot_index2.png'
         return MagicMock()
 
 

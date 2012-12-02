@@ -66,27 +66,27 @@ def test_compareClean(eukalypse, test_url):
     """
     Match against a clean screenshot and expect no error.
     """
-    response = eukalypse.compare('test_compareClean', 'assets/reference_test_screenshot.png', test_url)
+    response = eukalypse.compare('test_compareClean', 'tests/assets/reference_test_screenshot.png', test_url)
     _response_clean(response)
 
 
 def test_compareCleanSmallReference(eukalypse, test_url):
-    response = eukalypse.compare('test_compareCleanSmallReference', 'assets/reference_test_screenshot_tosmall.png', test_url)
+    response = eukalypse.compare('test_compareCleanSmallReference', 'tests/assets/reference_test_screenshot_tosmall.png', test_url)
     _response_clean(response)
 
 
 def test_compareCleanLargeReference(eukalypse, test_url):
-    response = eukalypse.compare('test_compareCleanLargeReference', 'assets/reference_test_screenshot_tolarge.png', test_url)
+    response = eukalypse.compare('test_compareCleanLargeReference', 'tests/assets/reference_test_screenshot_tolarge.png', test_url)
     _response_clean(response)
 
 
 def test_compareCleanLargeReferenceTainted(eukalypse, test_url):
-    response = eukalypse.compare('test_compareCleanLargeReferenceTainted', 'assets/reference_test_screenshot_tolarge2.png', test_url)
+    response = eukalypse.compare('test_compareCleanLargeReferenceTainted', 'tests/assets/reference_test_screenshot_tolarge2.png', test_url)
     _response_clean(response)
 
 
 def test_compareCleanLargeReferenceTainted2(eukalypse, test_url):
-    response = eukalypse.compare('test_compareCleanLargeReferenceTainted2', 'assets/reference_test_screenshot_tolarge3.png', test_url)
+    response = eukalypse.compare('test_compareCleanLargeReferenceTainted2', 'tests/assets/reference_test_screenshot_tolarge3.png', test_url)
     _response_tainted(response)
 
 
@@ -94,7 +94,7 @@ def test_compareTainted(eukalypse, test_url):
     """
     Match against a tainted screenshot and get the error.
     """
-    response = eukalypse.compare('test_compareTainted', 'assets/reference_test_screenshot_tainted.png', test_url)
+    response = eukalypse.compare('test_compareTainted', 'tests/assets/reference_test_screenshot_tainted.png', test_url)
     _response_tainted(response)
 
 
@@ -103,7 +103,7 @@ def test_compareTaintedMask(eukalypse, test_url):
     Match against a tainted screenshot but use a ignore mask to
     cut out the expected error.
     """
-    response = eukalypse.compare('test_compareTaintedMask', 'assets/reference_test_screenshot_tainted.png', test_url, 'assets/reference_test_screenshot_tainted_mask.png')
+    response = eukalypse.compare('test_compareTaintedMask', 'tests/assets/reference_test_screenshot_tainted.png', test_url, 'tests/assets/reference_test_screenshot_tainted_mask.png')
     _response_clean(response)
 
 
@@ -111,22 +111,22 @@ def test_compareTaintedMask2(eukalypse, test_url):
     """
     Match with a "wrong" irgnore mask and expect a tainted error
     """
-    response = eukalypse.compare('test_compareTaintedMask2', 'assets/reference_test_screenshot_tainted.png', test_url, 'assets/reference_test_screenshot_tainted_mask2.png')
+    response = eukalypse.compare('test_compareTaintedMask2', 'tests/assets/reference_test_screenshot_tainted.png', test_url, 'tests/assets/reference_test_screenshot_tainted_mask2.png')
     _response_tainted(response)
 
 
 def test_compareTaintedMask3(eukalypse, test_url):
-    response = eukalypse.compare('test_compareTaintedMask3', 'assets/reference_test_screenshot_tainted.png', test_url, 'assets/reference_test_screenshot_tainted_mask_stretch.png')
+    response = eukalypse.compare('test_compareTaintedMask3', 'tests/assets/reference_test_screenshot_tainted.png', test_url, 'tests/assets/reference_test_screenshot_tainted_mask_stretch.png')
     _response_clean(response)
 
 
 def test_compareTaintedMask4(eukalypse, test_url):
-    response = eukalypse.compare('test_compareTaintedMask4', 'assets/reference_test_screenshot_tainted.png', test_url, 'assets/reference_test_screenshot_tainted_mask_stretch2.png')
+    response = eukalypse.compare('test_compareTaintedMask4', 'tests/assets/reference_test_screenshot_tainted.png', test_url, 'tests/assets/reference_test_screenshot_tainted_mask_stretch2.png')
     _response_clean(response)
 
 
 def test_compareTaintedMask5(eukalypse, test_url):
-    response = eukalypse.compare('test_compareTaintedMask5', 'assets/reference_test_screenshot_tainted.png', test_url, 'assets/reference_test_screenshot_tainted_mask_stretch3.png')
+    response = eukalypse.compare('test_compareTaintedMask5', 'tests/assets/reference_test_screenshot_tainted.png', test_url, 'tests/assets/reference_test_screenshot_tainted_mask_stretch3.png')
     _response_tainted(response)
 
 
@@ -144,7 +144,7 @@ driver.set_window_size(1280, 768)
 driver.find_element_by_id("clickme").click()"""
     eukalypse.base_url = test_url
     eukalypse.execute(statement)
-    response = eukalypse.compare('execute', 'assets/reference_test_screenshot_index2.png')
+    response = eukalypse.compare('execute', 'tests/assets/reference_test_screenshot_index2.png')
     _response_clean(response)
 
 
@@ -166,7 +166,7 @@ driver.find_element_by_css_selector('input[type="text"]').send_keys("asd")"""
 
     eukalypse.base_url = test_url
     eukalypse.execute(statement)
-    response = eukalypse.compare('execute_row1', 'assets/reference_test_screenshot_input.png')
+    response = eukalypse.compare('execute_row1', 'tests/assets/reference_test_screenshot_input.png')
     _response_clean(response)
 
     statement = """
@@ -174,7 +174,7 @@ driver = self.driver
 driver.find_element_by_css_selector('input[type="submit"]').click()"""
 
     eukalypse.execute(statement)
-    response = eukalypse.compare('execute_row2', 'assets/reference_test_screenshot_index2.png')
+    response = eukalypse.compare('execute_row2', 'tests/assets/reference_test_screenshot_index2.png')
     _response_clean(response)
 
 
