@@ -65,6 +65,8 @@ def connect(instance):
 
 
 def pytest_funcarg__eukalypse(request):
+    import os
+    print os.path.realpath(__file__)
     eukalypse = Eukalypse()
     eukalypse.resolution = (1280, 768)
     eukalypse.browser = 'chrome'
