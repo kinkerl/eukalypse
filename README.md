@@ -1,6 +1,9 @@
 Eukalypse
 ===========
 
+.. image:: https://secure.travis-ci.org/kinkerl/eukalypse.png
+    :alt: Travis CI Build Status
+
 Eukalypse is a library to keep the hassle of websites litmus tests away from the developer. It serves 2 main goals:
 
 * easy way to create screenshots of websites - boring
