@@ -72,5 +72,5 @@ Resources
 ---------
 
 * `Documentation <http://eukalypse.readthedocs.org/>`_
-* `Continuous Integration https://travis-ci.org/kinkerl/eukalypse/>`_
+* `Continuous Integration <https://travis-ci.org/kinkerl/eukalypse/>`_
 ~                                                                            
