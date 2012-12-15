@@ -7,3 +7,4 @@ pep8
 #need git checkout for experimental python 3 support
 -e git://github.com/python-imaging/Pillow.git@master#egg=pillow
 mock
+eukalypse-brew

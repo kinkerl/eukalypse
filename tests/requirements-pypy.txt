@@ -7,3 +7,4 @@ pep8
 pillow
 configparser
 mock
+eukalypse-brew

@@ -8,3 +8,4 @@ lettuce
 pillow
 configparser
 mock
+eukalypse-brew
