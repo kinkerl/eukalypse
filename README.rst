@@ -11,7 +11,7 @@ Eukalypse is a library for automated visual regression tests for websites. It se
 
 Feature 2 can be used in and a testing environment: "is everything as i expect it to be?"
 Technical speaking: Are the pixels of the current generated screenshot of a website the same as in the reference screenshot I created and verified in advance.
-You can write tests using Eukalypse to verify your expections.
+You can write tests using Eukalypse to verify your expectations.
 
 **If you dont want to write tests or maintain a testing system yourself, you can use eukalypse_now. It is a turnkey ready standalone server for automated visual regression tests.**
 
