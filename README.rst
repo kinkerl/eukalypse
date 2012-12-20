@@ -4,16 +4,16 @@ eukalypse
 .. image:: https://secure.travis-ci.org/kinkerl/eukalypse.png
     :alt: Travis CI Build Status
 
-Eukalypse is a library to keep the hassle of websites litmus tests away from the developer. It serves 2 main goals:
+Eukalypse is a library for automated visual regression tests for websites. It serves 2 main goals:
 
-* easy way to create screenshots of websites - boring
-* easy way to create screenshots of websites and compare these to an expected outcome - interesting!! 
+* create screenshots of websites - boring
+* create screenshots of websites and compare these to an expected outcome - interesting!! 
 
 Feature 2 can be used in and a testing environment: "is everything as i expect it to be?"
 Technical speaking: Are the pixels of the current generated screenshot of a website the same as in the reference screenshot I created and verified in advance.
 You can write tests using Eukalypse to verify your expections.
-If you dont want to write tests or maintain a testing system yourself, you can use EukalypseNow. 
-It is an experimental stand-alone tool to regulary check your sites and inform you about changes in the pixels!
+If you dont want to write tests or maintain a testing system yourself, you can use eukalypse_now. 
+eukalypse_now is an experimental stand-alone tool to regulary check your sites and inform you about changes in the pixels.
 
 And dont worry. I know content changes are pixel changes as well. Sometimes these changes needed to be tracked, sometimes they do not.
 You can use the experimental feature of image masks to ignore changes in the masked areas.
@@ -73,4 +73,3 @@ Resources
 
 * `Documentation <http://eukalypse.readthedocs.org/>`_
 * `Continuous Integration <https://travis-ci.org/kinkerl/eukalypse>`_
-~                                                                            
