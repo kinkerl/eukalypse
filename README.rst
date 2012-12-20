@@ -15,8 +15,6 @@ You can write tests using Eukalypse to verify your expections.
 
 **If you dont want to write tests or maintain a testing system yourself, you can use eukalypse_now. It is a turnkey ready standalone server for automated visual regression tests.**
 
-eukalypse_now is an experimental stand-alone tool to regulary check your sites and inform you about changes in the pixels.
-
 And dont worry. I know content changes are pixel changes as well. Sometimes these changes needed to be tracked, sometimes they do not.
 You can use the experimental feature of image masks to ignore changes in the masked areas.
 
