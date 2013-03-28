@@ -24,7 +24,7 @@ setup(
     name="eukalypse",
     author="Dennis Schwertel",
     author_email="s@digitalkultur.net",
-    version='0.1.1',
+    version='0.1.2',
     url='https://github.com/kinkerl/eukalypse',
     license='MIT',
     zip_safe=False,
