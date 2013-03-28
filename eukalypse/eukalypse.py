@@ -116,9 +116,9 @@ class Eukalypse:
                     self.driver.get(target_url)
                 time.sleep(self.wait)
 
-                returnfilename = self.driver.get_screenshot_as_file(destination)
-                if returnfilename:  # screenshot should return the name of the file. this is used when overwriting the driver and i think its just a better style
-                    destination = returnfilename
+                working = self.driver.get_screenshot_as_file(destination)
+                if not working:  # screenshot should return the name of the file. this is used when overwriting the driver and i think its just a better style
+                    raise Exception
             except Exception:  # pragma: no cover
                 raise
             return destination
